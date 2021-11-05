@@ -1,5 +1,7 @@
 package Reservation;
 
+import Table.*;
+
 public class Reservation_Control {
     // Methods
     // Called when creating Reservation
@@ -23,7 +25,7 @@ public class Reservation_Control {
             // Iterates through the reservations in the table
             for (int j = 0; i < 5; j++) {
                 // Check if name and contact matches the table
-                if (name == Table_Control.getTablelayout(i).getReservation(j).getName()
+                if (name == Table_Control.getTableLayout(i).getReservation(j).getName()
                         & contact == Table_Control.getTableLayout(i).getReservation(j).getContact()) {
                     // Return reservation if matches
                 }
