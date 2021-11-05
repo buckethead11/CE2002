@@ -11,7 +11,8 @@ public class MenuItem {
     private int id;
     private String name;
     private String description;
-    private BigDecimal price;
+    private BigDecimal price; // use bigdecimal for price because apparently its better than using
+                              // double/float
     private FoodType type;
 
     /**
@@ -51,8 +52,8 @@ public class MenuItem {
         this.price = newPrice;
     }
 
-    public void updateDesc(BigDecimal newDescription) {
-        this.price = newDescription;
+    public void updateDesc(String newDescription) {
+        this.description = newDescription;
     }
 
     public FoodType getType() {
