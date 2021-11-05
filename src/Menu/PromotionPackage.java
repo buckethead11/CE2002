@@ -13,9 +13,9 @@ public class PromotionPackage {
      * 
      * @param packageId
      * @param packagePrice
-     * @param packageItems
+     * @param description
      */
-    public PromotionPackage(int packageId, BigDecimal packagePrice, String description) {
+    public PromotionPackage(int packageId, String description, BigDecimal packagePrice) {
         this.packageId = packageId;
         this.packagePrice = packagePrice;
         this.description = description;
