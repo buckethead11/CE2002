@@ -11,8 +11,7 @@ public class MenuItem {
     private int id;
     private String name;
     private String description;
-    private BigDecimal price; // use bigdecimal for price because apparently its better than using
-                              // double/float
+    private double price;
     private FoodType type;
 
     /**
@@ -24,7 +23,7 @@ public class MenuItem {
      * @param type
      */
 
-    public MenuItem(int id, String name, String description, BigDecimal price, FoodType type) {
+    public MenuItem(int id, FoodType type, String name, String description, double price) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -44,11 +43,11 @@ public class MenuItem {
         return this.description;
     }
 
-    public BigDecimal getPrice() {
+    public double getPrice() {
         return this.price;
     }
 
-    public void updatePrice(BigDecimal newPrice) {
+    public void updatePrice(double newPrice) {
         this.price = newPrice;
     }
 

@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class PromotionPackage {
 
     private int packageId;
-    private BigDecimal packagePrice;
+    private double packagePrice;
     private String description; // example of description: Package contains Carbonara+ Teh peng + ice cream. we
                                 // can change to using arraylist of menuItemID in the future
 
@@ -15,7 +15,7 @@ public class PromotionPackage {
      * @param packagePrice
      * @param description
      */
-    public PromotionPackage(int packageId, String description, BigDecimal packagePrice) {
+    public PromotionPackage(int packageId, String description, double packagePrice) {
         this.packageId = packageId;
         this.packagePrice = packagePrice;
         this.description = description;
@@ -25,7 +25,7 @@ public class PromotionPackage {
         return this.packageId;
     }
 
-    public BigDecimal getPackagePrice() {
+    public double getPackagePrice() {
         return this.packagePrice;
     }
 
@@ -33,7 +33,7 @@ public class PromotionPackage {
         return this.description;
     }
 
-    public void updatePackagePrice(BigDecimal newPrice) {
+    public void updatePackagePrice(double newPrice) {
         this.packagePrice = newPrice;
     }
 
