@@ -12,7 +12,7 @@ public class MenuItem {
     private String name;
     private String description;
     private double price;
-    private FoodType type;
+    private String type;
 
     /**
      * 
@@ -23,7 +23,7 @@ public class MenuItem {
      * @param type
      */
 
-    public MenuItem(int id, FoodType type, String name, String description, double price) {
+    public MenuItem(int id, String type, String name, String description, double price) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -55,7 +55,7 @@ public class MenuItem {
         this.description = newDescription;
     }
 
-    public FoodType getType() {
+    public String getType() {
         return this.type;
     }
 

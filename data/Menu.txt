@@ -1,10 +1,10 @@
 Menu
-1)|MAIN|Carbonara|Simply the best!|14.0
-2)|MAIN|Roasted Pork Rice|Local favourite|8.0
-3)|MAIN|Ayam Goreng|Indonesian special which comes with extra spicy sambal|9.0
-4)|MAIN|Cai Fan|Assorted ingredients|3.50
-5)|MAIN|Huge Xiao Long Bao|Delicate steamed dumpling|18.0
-6)|DRINK|Milkshake|Extra Thick Milkshake|5.00
-7)|DRINK|Thai Milk Tea|Fresh from Thailand|3.00
-8)|DRINK|Kopi Peng|Thick local coffee|2.00
-9)|DESSERT|Ice Cream|Legit and homemade|7.50
+1,MAIN,Carbonara,Simply the best!,14.0
+2,MAIN,Roasted Pork Rice,Local favourite,8.0
+3,MAIN,Ayam Goreng,Indonesian special which comes with extra spicy sambal,9.0
+4,MAIN,Cai Fan,Assorted ingredients,3.50
+5,MAIN,Huge Xiao Long Bao,Delicate steamed dumpling,18.0
+6,DRINK,Milkshake,Extra Thick Milkshake,5.00
+7,DRINK,Thai Milk Tea,Fresh from Thailand,3.00
+8,DRINK,Kopi Peng,Thick local coffee,2.00
+9,DESSERT,Ice Cream,Legit and homemade,7.50

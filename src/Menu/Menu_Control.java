@@ -8,36 +8,48 @@ import java.util.Scanner;
 
 public class Menu_Control {
 
-    private ArrayList<MenuItem> MenuList = new ArrayList<MenuItem>();
+    private static ArrayList<MenuItem> MenuList = new ArrayList<MenuItem>();
     private ArrayList<PromotionPackage> PromoPackageList = new ArrayList<PromotionPackage>();
 
-    public void printMenu() {
+    public static void showMenu() {
+        loadMenuItem();
+        System.out.println(
+                "\n======================================================= Menu =======================================================");
+
+        String menuFormat = "| %-3d | %-10s | %-20s | %-60s | %7.2f |%n";
+
+        System.out.format(
+                "+-----+------------+----------------------+--------------------------------------------------------------+----------+%n");
+        System.out.format(
+                "| ID  | Type       |       Name           |                        Description                            | Price($) |%n");
+        System.out.format(
+                "+-----+------------+----------------------+--------------------------------------------------------------+----------+%n");
+
+        for (int i = 0; i < MenuList.size(); i++) {
+            MenuItem item = MenuList.get(i);
+            System.out.printf(menuFormat, i + 1, item.getType(), item.getName(), item.getDesc(), item.getPrice());
+        }
 
     }
 
-    public void loadMenuItem() {
+    public static void loadMenuItem() {
         // load menu from pre-populated textfile
+        boolean itemexist = false;
         try {
             File MenuFile = new File("data", "Menu.txt");
             Scanner myReader = new Scanner(MenuFile);
             myReader.nextLine();
-            int i = 0;
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
-                String[] arrLinedata = data.split("|", 7);
-
-                // for(int i=0; i< MenuList.size(); i++) {
-                // if(MenuList.get(i).getName().equals(arrLinedata[2]) ) {
-                // itemloaded = true;
-                // }
-                // }
-                // if(itemloaded == false) {
-                MenuList.add(new MenuItem(i, FoodType.valueOf(arrLinedata[1]), arrLinedata[2], arrLinedata[3],
-                        Double.parseDouble(arrLinedata[4])));
-                // createMenuItem(FoodType.valueOf(arrLinedata[1]), arrLinedata[2],
-                // arrLinedata[3], Double.parseDouble(arrLinedata[4]));
-                // }
-                i++;
+                String[] arrLinedata = data.split(",", 8);
+                for (int i = 0; i < MenuList.size(); i++) {
+                    if (MenuList.get(i).getName().equals(arrLinedata[2])) {
+                        itemexist = true;
+                    }
+                }
+                if (itemexist == false) {
+                    createMenuItem(arrLinedata[1], arrLinedata[2], arrLinedata[3], Double.parseDouble(arrLinedata[4]));
+                }
             }
             myReader.close();
             // System.out.print("\nMenu was loaded from Menu Item text file\n");
@@ -54,10 +66,9 @@ public class Menu_Control {
      * @param price
      * @param foodType
      */
-    public void createMenuItem(FoodType type, String name, String description, double price) {
+    public static void createMenuItem(String type, String name, String description, double price) {
         MenuItem newItem = new MenuItem(MenuList.size(), type, name, description, price);
         MenuList.add(newItem);
-
     }
 
     /**
@@ -75,9 +86,9 @@ public class Menu_Control {
      * 
      * @param id
      */
-    public void removeMenuItem(int id) {
-        MenuList.remove(id); // remove item from menu by accessing their index. //TODO Implement removing
-                             // item by searching the item name
+    public static void removeMenuItem(int id) {
+        MenuList.remove(id); // remove item from menu by accessing their index.
+        // TODO implement removing by item name
     }
 
     /**
