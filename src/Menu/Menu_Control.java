@@ -12,19 +12,17 @@ public class Menu_Control {
     private ArrayList<PromotionPackage> PromoPackageList = new ArrayList<PromotionPackage>();
 
     public static void showMenu() {
-        loadMenuItem();
         System.out.println(
                 "\n======================================================= Menu =======================================================");
 
+        System.out.format(
+                "+-----+------------+----------------------+--------------------------------------------------------------+----------+%n");
+        System.out.format(
+                "| ID  | Type       |       Name           |                        Description                           | Price($) |%n");
+        System.out.format(
+                "+-----+------------+----------------------+--------------------------------------------------------------+----------+%n");
+
         String menuFormat = "| %-3d | %-10s | %-20s | %-60s | %7.2f |%n";
-
-        System.out.format(
-                "+-----+------------+----------------------+--------------------------------------------------------------+----------+%n");
-        System.out.format(
-                "| ID  | Type       |       Name           |                        Description                            | Price($) |%n");
-        System.out.format(
-                "+-----+------------+----------------------+--------------------------------------------------------------+----------+%n");
-
         for (int i = 0; i < MenuList.size(); i++) {
             MenuItem item = MenuList.get(i);
             System.out.printf(menuFormat, i + 1, item.getType(), item.getName(), item.getDesc(), item.getPrice());
@@ -61,10 +59,10 @@ public class Menu_Control {
 
     /**
      * 
+     * @param type
      * @param name
      * @param description
      * @param price
-     * @param foodType
      */
     public static void createMenuItem(String type, String name, String description, double price) {
         MenuItem newItem = new MenuItem(MenuList.size(), type, name, description, price);
@@ -79,7 +77,6 @@ public class Menu_Control {
     public void createNewPackage(String description, double packagePrice) {
         PromotionPackage newPackage = new PromotionPackage(PromoPackageList.size(), description, packagePrice);
         PromoPackageList.add(newPackage);
-
     }
 
     /**
@@ -87,37 +84,26 @@ public class Menu_Control {
      * @param id
      */
     public static void removeMenuItem(int id) {
-        MenuList.remove(id); // remove item from menu by accessing their index.
+        MenuList.remove(id - 1); // remove item from menu by accessing their index.
         // TODO implement removing by item name
     }
 
     /**
      * 
-     * @param MenuItem
-     * @param name
+     * @param id
+     * @param newDesc
      */
-    public void updateMenuItemName(int id, int name) {
-
+    public static void updateMenuItemDesc(int id, String newDesc) {
+        MenuList.get(id - 1).updateDesc(newDesc);
     }
 
     /**
      * 
-     * @param MenuItem
-     * @param desc
+     * @param id
+     * @param newPrice
      */
-    public void updateMenuItemDesc(int MenuItem, int desc) {
-        // TODO - implement Menu_Manager.updateMenuItemDesc
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * 
-     * @param MenuItem
-     * @param orderPrice
-     */
-    public void updateMenuItemPrice(int MenuItem, int orderPrice) {
-        // TODO - implement Menu_Manager.updateMenuItemPrice
-        throw new UnsupportedOperationException();
+    public void updateMenuItemPrice(int id, double newPrice) {
+        MenuList.get(id - 1).updatePrice(newPrice);
     }
 
     public void updatePackageDescription() {
@@ -128,7 +114,7 @@ public class Menu_Control {
      * 
      * @param PromotionPackage
      */
-    public void printPromotionPackage(int PromotionPackage) {
+    public void showPromotionPackage(int PromotionPackage) {
         // TODO - implement Menu_Manager.printPromotionPackage
         throw new UnsupportedOperationException();
     }
