@@ -1,0 +1,4 @@
+PromoPackage
+1,One Asian Main + Thai Milk Tea + Chendol,35.0
+2,One Western Main + Drink + Dessert of Choice,50.0
+3,Order anything from the menu,100.0

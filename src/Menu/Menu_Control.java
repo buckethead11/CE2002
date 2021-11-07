@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Menu_Control {
 
     private static ArrayList<MenuItem> MenuList = new ArrayList<MenuItem>();
-    private ArrayList<PromotionPackage> PromoPackageList = new ArrayList<PromotionPackage>();
+    private static ArrayList<PromotionPackage> PromoPackageList = new ArrayList<PromotionPackage>();
 
     public static void showMenu() {
         System.out.println(
@@ -71,16 +71,6 @@ public class Menu_Control {
 
     /**
      * 
-     * @param description
-     * @param packagePrice
-     */
-    public void createNewPackage(String description, double packagePrice) {
-        PromotionPackage newPackage = new PromotionPackage(PromoPackageList.size(), description, packagePrice);
-        PromoPackageList.add(newPackage);
-    }
-
-    /**
-     * 
      * @param id
      */
     public static void removeMenuItem(int id) {
@@ -106,17 +96,79 @@ public class Menu_Control {
         MenuList.get(id - 1).updatePrice(newPrice);
     }
 
-    public void updatePackageDescription() {
+    public static void showPromotionPackage() {
+        System.out.println("\n========================= Promotion Package =====================================");
 
+        System.out.format("+-----+--------------------------------------------------------------+----------+%n");
+        System.out.format("| ID  |                        Description                           | Price($) |%n");
+        System.out.format("+-----+--------------------------------------------------------------+----------+%n");
+
+        String promoFormat = "| %-3d | %-60s | %8.2f |%n";
+        for (int i = 0; i < PromoPackageList.size(); i++) {
+            PromotionPackage item = PromoPackageList.get(i);
+            System.out.printf(promoFormat, i + 1, item.getDesc(), item.getPackagePrice());
+        }
+
+    }
+
+    public static void loadPromo() {
+        // load promo package from pre-populated textfile
+        boolean itemexist = false;
+        try {
+            File PromoFile = new File("data", "PromoPackage.txt");
+            Scanner myReader = new Scanner(PromoFile);
+            myReader.nextLine();
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                String[] arrLinedata = data.split(",", 8);
+                for (int i = 0; i < MenuList.size(); i++) {
+                    if (MenuList.get(i).getName().equals(arrLinedata[2])) {
+                        itemexist = true;
+                    }
+                }
+                if (itemexist == false) {
+                    createNewPackage(arrLinedata[1], Double.parseDouble(arrLinedata[2]));
+                }
+            }
+            myReader.close();
+            // System.out.print("\nMenu was loaded from Menu Item text file\n");
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found! Promo Package not updated");
+            e.printStackTrace();
+        }
     }
 
     /**
      * 
-     * @param PromotionPackage
+     * @param description
+     * @param packagePrice
      */
-    public void showPromotionPackage(int PromotionPackage) {
-        // TODO - implement Menu_Manager.printPromotionPackage
-        throw new UnsupportedOperationException();
+    public static void createNewPackage(String description, double packagePrice) {
+        PromotionPackage newPackage = new PromotionPackage(PromoPackageList.size(), description, packagePrice);
+        PromoPackageList.add(newPackage);
+    }
+
+    public static void removePackage(int id) {
+        PromoPackageList.remove(id - 1); // remove item from menu by accessing their index.
+        // TODO implement removing by item name
+    }
+
+    /**
+     * 
+     * @param id
+     * @param newDesc
+     */
+    public static void updatePromoDesc(int id, String newDesc) {
+        PromoPackageList.get(id - 1).updateDesc(newDesc);
+    }
+
+    /**
+     * 
+     * @param id
+     * @param newPrice
+     */
+    public void updatePromoPrice(int id, double newPrice) {
+        PromoPackageList.get(id - 1).updatePackagePrice(newPrice);
     }
 
 }
