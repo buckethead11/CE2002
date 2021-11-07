@@ -1,23 +1,53 @@
 package Table;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.File;
+
 public class Table_Control {
-	//create table layout with 10 tables
-	private static Table[] table_layout = new Table[10];
 	
+	private static ArrayList<Table> tableLayout;
+	//Gets path of the project directory
+	private static String userHome = System.getProperty("user.dir");
+	public static String pathSeparator = File.separator; 
+	private static String pathToCsv = userHome+ pathSeparator + "src" + pathSeparator + "data"+ pathSeparator + "tables.csv";
+	
+	
+	
+	//Initialises the table layout
 	public static void init() {
-		// Fill in the table object array
-		for (int i =0;i<10;i++) {
-			// Create new Table object and give it a table id and pax number
-			table_layout[i] = new Table(i,5);
+		//create an array list of table layout with 20 tables
+		tableLayout = new ArrayList<Table>(20);
+		Table table;
+		
+		// Loads table layout
+		try {
+		BufferedReader csvReader = new BufferedReader(new FileReader(pathToCsv));
+		csvReader.readLine(); // this will read the first line
+		String line1=null;//skips first line
+		String row ="";
+		while ((row = csvReader.readLine()) != null) {
+		    //reads each line and split it by comma into an array
+			String[] line = row.split(",");
+			int pax = Integer.parseInt(line[1]);
+			int tableID = Integer.parseInt(line[0]);
+			
+			table = new Table(tableID, pax);
+			tableLayout.add(table);
 		}
+		System.out.println("Table loaded");
+		csvReader.close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
-	//Getter
-	public static Table getTableLayout(int index) {
-		return table_layout[index];
-	}
+	
 	//Methods
 	public static int checkTable(Calendar dateTime, int pax) {
 		int i = 0;
@@ -25,7 +55,7 @@ public class Table_Control {
 		//Iterates through the table layout
 		for (i =0;i<10;i++) {
 			//If table can fit the pax and is not occupied
-			if (table_layout[i].getPax() >= pax && table_layout[i].getReservation(i).getOccupied() == false ){
+			if (tableLayout.get(i).getPax() >= pax && tableLayout.get(i).getReservation(i).getOccupied() == false ){
 				System.out.println("Table found!");
 				index = i;
 				return index;
@@ -35,19 +65,19 @@ public class Table_Control {
 				}
 			}
 		//returns the table id to the reservation controller
-		return table_layout[index].getTableID();
+		return tableLayout.get(i).getTableID();
 		}	
 	//assigns the reservation to the table
 	public static void assignTable(Calendar dateTime, int pax, String name, int contact,int tableID) {
 		//Pushes the reservation to the table
 		//Gets the index of the reservation array based on the timing
-		int index = Table_Control.getTableLayout(tableID).getReservationIndex(dateTime);
+		int index = tableLayout.get(tableID).getReservationIndex(dateTime);
 		//Sets the name of the reservation
-		Table_Control.getTableLayout(tableID).getReservation(index).setName(name);
+		tableLayout.get(tableID).getReservation(index).setName(name);
 		//Sets the contact of the reservation
-		Table_Control.getTableLayout(tableID).getReservation(index).setContact(contact);
+		tableLayout.get(tableID).getReservation(index).setContact(contact);
 		//Sets occupied to true
-		Table_Control.getTableLayout(tableID).getReservation(index).setOccupied(true);
+		tableLayout.get(tableID).getReservation(index).setOccupied(true);
 		System.out.println("Table assigned!");
 		
 	}
