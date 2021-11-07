@@ -50,7 +50,6 @@ public class Menu_Control {
                 }
             }
             myReader.close();
-            // System.out.print("\nMenu was loaded from Menu Item text file\n");
         } catch (FileNotFoundException e) {
             System.out.println("File not found! Menu not updated");
             e.printStackTrace();
@@ -92,7 +91,7 @@ public class Menu_Control {
      * @param id
      * @param newPrice
      */
-    public void updateMenuItemPrice(int id, double newPrice) {
+    public static void updateMenuItemPrice(int id, double newPrice) {
         MenuList.get(id - 1).updatePrice(newPrice);
     }
 
@@ -167,7 +166,7 @@ public class Menu_Control {
      * @param id
      * @param newPrice
      */
-    public void updatePromoPrice(int id, double newPrice) {
+    public static void updatePromoPrice(int id, double newPrice) {
         PromoPackageList.get(id - 1).updatePackagePrice(newPrice);
     }
 
