@@ -8,6 +8,8 @@ import Table.Table_Control;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -70,20 +72,23 @@ public class Reservation_Control{
 			SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yy HH:mm");
 			Date d = dateFormatter.parse(date + " "+time);
 			reserveDate.setTime(d);
+			//Check tables to see if any can fit the pax. checktable returns an array of possible tableID
+			//Checks through the available tables to see if any of them has a clashing reservation
+			int tableID = Reservation_Control.checkAvailable(pax, reserveDate);
+			if(tableID ==-1) {
+				System.out.println("No tables available");
+			}else {
+				//Add this reservation to the reservation list
+				Reservation newreservation = new Reservation(reserveDate,  pax, name, contact, tableID);
+				
+				reservationList.add(newreservation);
+				System.out.println("Reservation Created!");
+			}
 			}catch(java.text.ParseException e) {
 	            // TODO Auto-generated catch block
-	            e.printStackTrace();
+	            System.out.println("Please input your date and time in the correct format!");
 	        }
-		//Check tables to see if any can fit the pax. checktable returns an array of possible tableID
-		//Checks through the available tables to see if any of them has a clashing reservation
-		int tableID = Reservation_Control.checkAvailable(pax, reserveDate);
-		if(tableID ==-1) {
-			System.out.println("No tables available");
-		}else {
-			//Add this reservation to the reservation list
-			Reservation newreservation = new Reservation(reserveDate,  pax, name, contact, tableID);
-			reservationList.add(newreservation);
-		}
+		
 		
 	}
 	
@@ -92,8 +97,10 @@ public class Reservation_Control{
 	public static void deleteReservation(String name) {
 		
 	}
-	
-	
+	//Check for expired reservations and deletes them
+	public static void checkReservation() {
+		
+	}
 	//Called when viewing reservation
 	public static void viewReservation(String name, int contact) {
 		boolean notFound = true;
@@ -108,7 +115,7 @@ public class Reservation_Control{
 				//Print out reservation bookings
 				System.out.println("Resevation name: " +reservationList.get(i).getName() );
 				System.out.println("Resevation date and time: " + strDate);
-				System.out.println("Resevation pax: " + reservationList.get(i).getContact());
+				System.out.println("Resevation pax: " + reservationList.get(i).getPax());
 				notFound = false;
 			}
 		}
@@ -120,20 +127,56 @@ public class Reservation_Control{
 	
 	public static int checkAvailable(int pax,Calendar reservedDate) {
 		int tableID = -1;
-		
-		//Iterates through each table in the layout to check for pax and occupied
+		ArrayList<Integer> tables = new ArrayList<Integer>();
+		//Iterates through each table in the layout to check for pax and occupied. If not occupied, return the table ID
 		for (int i = 0; i<Table_Control.getTableLayout().size();i++) {
 			//Deals with even pax requests
 			if(pax == Table_Control.getTableLayout().get(i).getPax()&& !Table_Control.getTableLayout().get(i).getOccupied()) {
 				//Assign available table with the suitable pax to the arraylist of avail tables
 				tableID = Table_Control.getTableLayout().get(i).getTableID();
 				
-			}else if (pax+1 == Table_Control.getTableLayout().get(i).getPax()) { //Deals with odd numbers
+			}else if (pax+1 == Table_Control.getTableLayout().get(i).getPax()&& !Table_Control.getTableLayout().get(i).getOccupied()) { //Deals with odd numbers
 				//Assign available table with the suitable pax to the arraylist of avail tables
 				tableID = Table_Control.getTableLayout().get(i).getTableID();
 				
 			}
 		}
-		return tableID;
+		//if all proposed tables is occupied, check the reservations list to see if the occupied table has a clashing reservation
+		if (tableID == -1) {
+			//iterates through reservation list to see if table has a clashing reservation
+			for (int j = 0; j<reservationList.size();j++) {
+				
+			}
+			return tableID;
+		}else {
+			return tableID;
+		}
 	}
+	
+	public static void saveReservation() {
+		System.out.println("Saving Reservations...");
+		FileWriter writer;
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yy HH:mm");
+
+
+		try {
+			writer = new FileWriter(pathToCsv);
+			writer.append("date, pax, name, contact, tableID\n");
+			for(int k=0 ; k< reservationList.size();k++) {
+	            String dateTime = dateFormatter.format((Date)reservationList.get(k).getDateTime().getTime());
+	            String pax = Integer.toString(reservationList.get(k).getPax());
+	            String name = reservationList.get(k).getName();
+	            String contact = Integer.toString(reservationList.get(k).getContact());
+	            String tableID = Integer.toString(reservationList.get(k).getTableID());
+	            writer.append(dateTime + "," + pax + "," + name + "," + contact + "," + tableID + "\n");
+	        }
+	        writer.flush();
+	        writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        System.out.println("Saved!");
+    }
+	
 }
