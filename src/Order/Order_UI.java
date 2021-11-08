@@ -55,25 +55,27 @@ public class Order_UI {
 
                 case 3:// add an item into order
                     System.out.println("Pleaes key in the order you want to edit");
+                    int orderID = sc.nextInt();
+                    System.out.println("Please enter itemID to be added");
+                    int itemID = sc.nextInt();
+                    System.out.println("Please enter Quantity");
+                    int quanitity = sc.nextInt();
+                    orderManager.addItemToOrder(orderID, itemID, quanitity);
+                    /*
                     try{
-                        int orderID = sc.nextInt();
-                        System.out.println("Please enter itemID to be added");
-                        int itemID = sc.nextInt();
-                        System.out.println("Please enter Quantity");
-                        int quanitity = sc.nextInt();
-                        orderManager.addItemToOrder(orderID, itemID, quanitity);
+
 
                     } catch (Exception e){
                         System.out.println("Error: Please enter a valid value");
-                    }
+                    }*/
                     break;
 
                 case 4:// delete an item from other
                     System.out.println("Pleaes key in the order you want to edit");
                     try{
-                        int orderID = sc.nextInt();
+                        orderID = sc.nextInt();
                         System.out.println("Please enter itemID to be deleted ");
-                        int itemID = sc.nextInt();
+                        itemID = sc.nextInt();
                         System.out.println("Please enter Quantity");
                         int quantity = sc.nextInt();
                         orderManager.removeItemFromOrder(orderID, itemID, quantity);
@@ -89,7 +91,7 @@ public class Order_UI {
                     System.out.println("Printing out all the orders");
                     orderListManager.getAllOrders();
                     System.out.println("Which order do you want to delete?");
-                    int orderID= sc.nextInt();
+                    orderID= sc.nextInt();
                     orderListManager.deleteOrder(orderID);
                     break;
                 case 6 :

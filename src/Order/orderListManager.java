@@ -29,7 +29,7 @@ public class orderListManager{
     }
     public static Order getSingleOrder(int orderID){
         // Read the list, for each object get the value 
-        return orderList.get(orderID);
+        return orderList.get(orderID-1);
     }
 
     public static void deleteOrder(int orderID){
