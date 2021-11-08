@@ -14,6 +14,9 @@ public class Menu_Control {
     public static void init() {
         loadMenuItem();
         loadPromo();
+    }
+
+    public static void displayUI() {
         Menu_UI.display();
     }
 
