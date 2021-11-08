@@ -127,8 +127,8 @@ public class Menu_Control {
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 String[] arrLinedata = data.split(",", 8);
-                for (int i = 0; i < MenuList.size(); i++) {
-                    if (MenuList.get(i).getName().equals(arrLinedata[2])) {
+                for (int i = 0; i < PromoPackageList.size(); i++) {
+                    if (PromoPackageList.get(i).getDesc().equals(arrLinedata[1])) {
                         itemexist = true;
                     }
                 }
