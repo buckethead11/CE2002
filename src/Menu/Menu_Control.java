@@ -7,9 +7,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu_Control {
-
+    static Scanner sc = new Scanner(System.in);
     private static ArrayList<MenuItem> MenuList = new ArrayList<MenuItem>();
     private static ArrayList<PromotionPackage> PromoPackageList = new ArrayList<PromotionPackage>();
+
+    public static void init() {
+        loadMenuItem();
+        loadPromo();
+        Menu_UI.display();
+    }
 
     public static void showMenu() {
         System.out.println(
@@ -27,6 +33,7 @@ public class Menu_Control {
             MenuItem item = MenuList.get(i);
             System.out.printf(menuFormat, i + 1, item.getType(), item.getName(), item.getDesc(), item.getPrice());
         }
+        System.out.print("\n");
 
     }
 
@@ -107,7 +114,7 @@ public class Menu_Control {
             PromotionPackage item = PromoPackageList.get(i);
             System.out.printf(promoFormat, i + 1, item.getDesc(), item.getPackagePrice());
         }
-
+        System.out.print("\n");
     }
 
     public static void loadPromo() {
@@ -168,6 +175,14 @@ public class Menu_Control {
      */
     public static void updatePromoPrice(int id, double newPrice) {
         PromoPackageList.get(id - 1).updatePackagePrice(newPrice);
+    }
+
+    public static ArrayList<MenuItem> getMenuArrayList() {
+        return MenuList;
+    }
+
+    public static ArrayList<PromotionPackage> getPromoPackageList() {
+        return PromoPackageList;
     }
 
 }
