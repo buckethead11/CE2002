@@ -16,16 +16,29 @@ public class Order_UI {
         Scanner sc = new Scanner(System.in);
         int input;
         do{
-            System.out.println("(1) Create a new order");
-            System.out.println("(2) Add an item to Order");
-            System.out.println("(3) Delete an item from Order");
-            System.out.println("(4) Delete an Order");
-            System.out.println("(5) Set and Change Tax Rate");
+            System.out.println("(1) View a order");
+            System.out.println("(2) Create a new order");
+            System.out.println("(3) Add an item to Order");
+            System.out.println("(4) Delete an item from Order");
+            System.out.println("(5) Delete an Order");
+            System.out.println("(6) Set and Change Tax Rate");
 
             input = sc.nextInt();
 
             switch(input){
-                case 1: // create a new Order
+                case 1: //view an order
+                    System.out.println("Please enter the orderID to view");
+                    try{
+                        input = sc.nextInt();
+                        orderManager.printOrderedItems(input);
+                        break;
+    
+                    }catch (Exception e){
+                        System.out.println("Error: Please enter a valid input");
+                    }
+                    break;
+                    
+                case 2: // create a new Order
                 try{
                     System.out.println("Enter Order Number");
                     int orderNumber = sc.nextInt();
@@ -40,7 +53,7 @@ public class Order_UI {
                 break;
                     
 
-                case 2:// add an item into order
+                case 3:// add an item into order
                     System.out.println("Pleaes key in the order you want to edit");
                     try{
                         int orderID = sc.nextInt();
@@ -55,7 +68,7 @@ public class Order_UI {
                     }
                     break;
 
-                case 3:// delete an item from other
+                case 4:// delete an item from other
                     System.out.println("Pleaes key in the order you want to edit");
                     try{
                         int orderID = sc.nextInt();
@@ -72,14 +85,14 @@ public class Order_UI {
 
 
 
-                case 4: // Delete an order
+                case 5: // Delete an order
                     System.out.println("Printing out all the orders");
                     orderListManager.getAllOrders();
                     System.out.println("Which order do you want to delete?");
                     int orderID= sc.nextInt();
                     orderListManager.deleteOrder(orderID);
                     break;
-                case 5 :
+                case 6 :
                     System.out.println("Enter new service charge rate percentage (whole numbers only)");
                     int serviceChargeRate =sc.nextInt();
                     System.out.println("Enter new government tax rate percentage (whole numbers only)");

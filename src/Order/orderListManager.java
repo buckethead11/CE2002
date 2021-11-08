@@ -27,6 +27,10 @@ public class orderListManager{
         } 
         return orderList;
     }
+    public static Order getSingleOrder(int orderID){
+        // Read the list, for each object get the value 
+        return orderList.get(orderID);
+    }
 
     public static void deleteOrder(int orderID){
         try{
@@ -37,7 +41,7 @@ public class orderListManager{
             System.out.println("Order " +orderID +" deleted");
 
         }catch (Exception e){
-            System.out.println( "Order not found please try again or type -1 to exit ");
+            System.out.println( "Order not found");
 
         }
 
@@ -113,11 +117,14 @@ public static int orderIDValidCheck (int orderID){
             break;
         else{
             try{
-                System.out.println("OrderID does not exist please try again");
+                System.out.println("OrderID does not exist please enter a valid Order ID. To exit enter -1");
                 checkedOrderID = sc.nextInt();
+                if (checkedOrderID== -1)
+                    break;
+
 
             }catch (Exception e){
-                System.out.println("Please enter an integer value for staff ID");
+                System.out.println("Please enter an integer value. To exit enter -1");
             }
         }
     }

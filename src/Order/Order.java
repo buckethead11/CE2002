@@ -21,8 +21,9 @@ public class Order {
         this.orderedItems = new ArrayList<MenuItem>();
         
     }
+    
 
-    public ArrayList<MenuItem> getSingleOrderItems(){
+    public ArrayList<MenuItem> getOrderedItems(){
         return orderedItems;
     }
 
@@ -40,9 +41,6 @@ public class Order {
         return membershipStatus;
     }
 
-    public ArrayList<MenuItem> getOrderedItems() {
-        return orderedItems;
-    }
 
     public void setOrderID(int orderID) {
         this.orderID = orderID;

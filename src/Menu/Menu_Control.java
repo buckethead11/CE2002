@@ -40,6 +40,10 @@ public class Menu_Control {
 
     }
 
+    public static MenuItem getMenuItem(int itemID){
+        return MenuList.get(itemID-1);
+    }
+
     public static void loadMenuItem() {
         // load menu from pre-populated textfile
         boolean itemexist = false;
