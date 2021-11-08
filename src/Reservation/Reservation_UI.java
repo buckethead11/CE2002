@@ -39,7 +39,9 @@ public class Reservation_UI {
 				case 3: // Delete Reservation
 					System.out.println("Please enter your name");
 					String z = sc.next();
-					Reservation_Control.deleteReservation(z);
+					System.out.println("Please enter your contact number");
+					int a = sc.nextInt();
+					Reservation_Control.deleteReservation(z,a);
 					break;
 				case 4: // Exit
 					Reservation_Control.saveReservation();
