@@ -1,6 +1,7 @@
 package reservations;
 
 import java.util.Date;
+import java.util.Iterator;
 
 import Table.Table;
 import Table.Table_Control;
@@ -50,6 +51,8 @@ public class Reservation_Control{
 			Table_Control.getTableLayout().get(tableID-1).setOccupied(true);
 			reservationList.add(reservation);
 		}
+		//Checks for expired reservations
+		checkReservation();
 		System.out.println("Reservations loaded");
 		csvReader.close();
 		}catch (Exception e) {
@@ -94,13 +97,39 @@ public class Reservation_Control{
 	
 	
 	//Called when deleting Reservations
-	public static void deleteReservation(String name) {
-		
+	public static void deleteReservation(String name, int contact) {
+		boolean notFound = true;
+		Iterator<Reservation> itr = reservationList.iterator();
+		while (itr.hasNext()) {
+			Reservation reservationList = itr.next(); 
+			if (name.equals(reservationList.getName()) && contact==reservationList.getContact()) {
+				itr.remove();
+				notFound = false;
+				System.out.println("Reservation deleted!");
+				} 
+			}
+		if (notFound) {
+			System.out.println("No reservation found!");
+		}
 	}
-	//Check for expired reservations and deletes them
+	
+	//Check for expired reservations (30mins after time elapsed) and deletes them
 	public static void checkReservation() {
-		
+		//Gets the current time
+		Calendar now = Calendar.getInstance();
+		now.add(Calendar.MINUTE, 30);
+		//Iterates through the reservation list and checks for expired reservations
+		for (int i =0;i<reservationList.size();i++) {
+			if(now.after(reservationList.get(i).getDateTime())) {
+				System.out.println("Deleting expired reservations" );
+				String name = reservationList.get(i).getName();
+				int contact = reservationList.get(i).getContact();
+				deleteReservation(name,contact);
+
+			}
+		}
 	}
+	
 	//Called when viewing reservation
 	public static void viewReservation(String name, int contact) {
 		boolean notFound = true;
@@ -157,7 +186,8 @@ public class Reservation_Control{
 		System.out.println("Saving Reservations...");
 		FileWriter writer;
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yy HH:mm");
-
+		//Checks for expired reservations
+		checkReservation();
 
 		try {
 			writer = new FileWriter(pathToCsv);
@@ -176,7 +206,18 @@ public class Reservation_Control{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		for (int i =0;i<reservationList.size();i++) {
+			//Converts date to string
+			Calendar date = reservationList.get(i).getDateTime();
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
+			String strDate = dateFormat.format(date.getTime());
+			//Print out reservation bookings
+			System.out.println("Resevation name: " +reservationList.get(i).getName() );
+			System.out.println("Resevation date and time: " + strDate);
+			System.out.println("Resevation pax: " + reservationList.get(i).getPax());
+		}
         System.out.println("Saved!");
     }
 	
 }
+
