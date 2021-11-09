@@ -69,8 +69,8 @@ public class Order_UI {
 
     public static void ViewOrder() {
         System.out.println("Please enter the tableID to view order");
-        int input = sc.nextInt();
-        orderManager.printOrderedItems(input);
+        int tableID = sc.nextInt();
+        orderManager.printOrderedItems(tableID);
     }
 
     public static void createNewOrder() {
@@ -92,23 +92,25 @@ public class Order_UI {
 
     public static void addItem() {
         System.out.println("Pleaes key in the tableID you want to add order");
-        int tableID2 = sc.nextInt();
-        System.out.println("Please enter itemID to be added");
+        int tableID = sc.nextInt();
+        Menu_Control.showMenu();
+        System.out.println("Please enter itemID to be added with above menu for reference");
         int itemID = sc.nextInt();
         System.out.println("Please enter Quantity");
         int quanitity = sc.nextInt();
-        orderManager.addItemToOrder(tableID2, itemID, quanitity);
+        orderManager.addItemToOrder(tableID, itemID - 1, quanitity);
     }
 
     public static void deleteItem() {
         System.out.println("Please key in the tableID you want to remove order");
         // try {
-        int tableID3 = sc.nextInt();
+        int tableID = sc.nextInt();
+        orderManager.printOrderedItems(tableID);
         System.out.println("Please enter itemID to be deleted ");
-        int itemID2 = sc.nextInt();
+        int itemID = sc.nextInt();
         System.out.println("Please enter Quantity");
         int quantity = sc.nextInt();
-        orderManager.removeItemFromOrder(tableID3, itemID2, quantity);
+        orderManager.removeItemFromOrder(tableID, itemID - 1, quantity);
 
         // } catch (Exception e) {
         // System.out.println("Error: Please enter a valid value");

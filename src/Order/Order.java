@@ -56,7 +56,7 @@ public class Order {
 
     public void removeItems(int itemID, int quantity) {
         if (orderedItems.containsKey(itemID)) {
-            incrementValueFromKey(itemID, quantity);
+            decrementValueFromKey(itemID, quantity);
         } else {
             orderedItems.put(itemID, quantity);
         }

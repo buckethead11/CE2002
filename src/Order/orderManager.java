@@ -40,8 +40,14 @@ public class orderManager {
 
     public static void printOrderedItems(int tableID) {
         HashMap<Integer, Integer> orderToBePrinted = orderList.get(tableID).getOrderedItems();
-        orderToBePrinted.forEach((key, value) -> System.out
-                .println("Name: " + Menu_Control.getMenuArrayList().get(key).getName() + ", Quantity: " + value));
+        System.out.println("\n=============== Current Order For Table " + tableID + " =====================");
+        System.out.format("+-----+-----------------------------------------------+-----+%n");
+        System.out.format("| ID  |                     Name                      | Qty |%n");
+        System.out.format("+-----+-----------------------------------------------+-----+%n");
+        String orderFormat = "| %-3d | %-45s | %3d |%n";
+        orderToBePrinted.forEach(
+                (key, value) -> System.out.printf(orderFormat, Menu_Control.getMenuArrayList().get(key).getItemId(),
+                        Menu_Control.getMenuArrayList().get(key).getName(), value));
     }
 
     // int orderID = orderListManager.orderIDValidCheck(orderIDParam); // sanity
