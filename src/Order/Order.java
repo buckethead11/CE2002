@@ -13,8 +13,10 @@ public class Order {
     private boolean membershipStatus;
     private int staffID;
     private HashMap<Integer, Integer> orderedItems = new HashMap<Integer, Integer>();
+    private HashMap<Integer, Integer> orderedPackages = new HashMap<Integer, Integer>();
 
-    public Order(int tableID, boolean membershipStatus, int staffID, HashMap<Integer, Integer> orderedItems) {
+    public Order(int tableID, boolean membershipStatus, int staffID, HashMap<Integer, Integer> orderedItems,
+            HashMap<Integer, Integer> orderedPackages) {
         this.tableID = tableID;
         this.membershipStatus = membershipStatus;
         this.staffID = staffID;
@@ -41,11 +43,24 @@ public class Order {
         return this.orderedItems;
     }
 
+    public HashMap<Integer, Integer> getOrderedPackages() {
+        return this.orderedPackages;
+    }
+
     public void addItems(int itemID, int quantity) {
         if (orderedItems.containsKey(itemID)) {
             incrementValueFromKey(itemID, quantity);
         } else {
             orderedItems.put(itemID, quantity);
+        }
+
+    }
+
+    public void addPackages(int packageID, int quantity) {
+        if (orderedPackages.containsKey(packageID)) {
+            incrementValueFromKey(packageID, quantity);
+        } else {
+            orderedPackages.put(packageID, quantity);
         }
 
     }
@@ -57,6 +72,15 @@ public class Order {
     public void removeItems(int itemID, int quantity) {
         if (orderedItems.containsKey(itemID)) {
             decrementValueFromKey(itemID, quantity);
+        } else {
+            System.out.println("No such item in the existing order");
+        }
+
+    }
+
+    public void removePackages(int packageID, int quantity) {
+        if (orderedPackages.containsKey(packageID)) {
+            decrementValueFromKey(packageID, quantity);
         } else {
             System.out.println("No such item in the existing order");
         }
