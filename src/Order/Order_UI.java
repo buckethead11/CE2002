@@ -89,27 +89,66 @@ public class Order_UI {
     public static void addItem() {
         System.out.println("Pleaes key in the tableID you want to add order");
         int tableID = sc.nextInt();
-        Menu_Control.showMenu();
-        System.out.println("Please enter itemID to be added with above menu for reference");
-        int itemID = sc.nextInt();
-        System.out.println("Please enter Quantity");
-        int quanitity = sc.nextInt();
-        orderManager.addItemToOrder(tableID, itemID - 1, quanitity);
+        System.out.println("(1) Add ala carte item");
+        System.out.println("(2) Add promo package item");
+        int choice = sc.nextInt();
+        if (choice == 1)
+            addMenuItem(tableID);
+        if (choice == 2)
+            addPackage(tableID);
     }
 
     public static void deleteItem() {
         System.out.println("Please key in the tableID you want to remove order");
         // try {
         int tableID = sc.nextInt();
-        orderManager.printOrderedItems(tableID);
-        System.out.println("Please enter itemID to be deleted ");
-        int itemID = sc.nextInt();
-        System.out.println("Please enter Quantity");
-        int quantity = sc.nextInt();
-        orderManager.removeItemFromOrder(tableID, itemID - 1, quantity);
-
+        System.out.println("(1) Remove ala carte item");
+        System.out.println("(2) Remove promo package item");
+        int choice = sc.nextInt();
+        if (choice == 1)
+            deleteMenuItem(tableID);
+        if (choice == 2)
+            deletePackageItem(tableID);
         // } catch (Exception e) {
         // System.out.println("Error: Please enter a valid value");
         // }
     }
+
+    public static void addMenuItem(int tableID) {
+        Menu_Control.showMenu();
+        System.out.println("Please enter itemID to be added with above list for reference");
+        int itemID = sc.nextInt();
+        System.out.println("Please enter Quantity");
+        int quanitity = sc.nextInt();
+        orderManager.addItemToOrder(tableID, itemID - 1, quanitity);
+    }
+
+    public static void addPackage(int tableID) {
+        Menu_Control.showPromotionPackage();
+        System.out.println("Please enter packageID to be added with above list for reference");
+        int itemID = sc.nextInt();
+        System.out.println("Please enter Quantity");
+        int quanitity = sc.nextInt();
+        orderManager.addPackageToOrder(tableID, itemID - 1, quanitity);
+    }
+
+    public static void deleteMenuItem(int tableID) {
+        orderManager.printOrderedItems(tableID);
+        System.out.println("Please enter ala carte itemID to be deleted ");
+        int itemID = sc.nextInt();
+        System.out.println("Please enter Quantity");
+        int quantity = sc.nextInt();
+        orderManager.removeItemFromOrder(tableID, itemID - 1, quantity);
+    }
+
+    public static void deletePackageItem(int tableID) {
+        orderManager.printOrderedItems(tableID);
+        System.out.println("Please enter package itemID to be deleted ");
+        int itemID = sc.nextInt();
+        System.out.println("Please enter Quantity");
+        int quantity = sc.nextInt();
+        orderManager.removePackageFromOrder(tableID, itemID - 1, quantity);
+
+    }
+
 }

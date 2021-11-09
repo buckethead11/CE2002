@@ -14,7 +14,8 @@ public class orderManager {
 
     public static void makeOrder(int tableID, boolean membershipStatus, int staffID) {
         HashMap<Integer, Integer> orderedItems = new HashMap<Integer, Integer>();
-        Order newOrder = new Order(tableID, membershipStatus, staffID, orderedItems);
+        HashMap<Integer, Integer> orderedPackages = new HashMap<Integer, Integer>();
+        Order newOrder = new Order(tableID, membershipStatus, staffID, orderedItems, orderedPackages);
         orderList.put(tableID, newOrder);
     }
 
@@ -38,20 +39,37 @@ public class orderManager {
 
     }
 
+    public static void addPackageToOrder(int tableID, int packageID, int quantity) {
+        orderList.get(tableID).addPackages(packageID, quantity);
+    }
+
     public static void removeItemFromOrder(int tableID, int itemID, int quantity) {
         orderList.get(tableID).removeItems(itemID, quantity);
     }
 
+    public static void removePackageFromOrder(int tableID, int packageID, int quantity) {
+        orderList.get(tableID).removePackages(packageID, quantity);
+    }
+
     public static void printOrderedItems(int tableID) {
-        HashMap<Integer, Integer> orderToBePrinted = orderList.get(tableID).getOrderedItems();
-        System.out.println("\n=============== Current Order For Table " + tableID + " =====================");
+        HashMap<Integer, Integer> orderItemsToBePrinted = orderList.get(tableID).getOrderedItems();
+        HashMap<Integer, Integer> orderPackagesToBePrinted = orderList.get(tableID).getOrderedPackages();
+        System.out.println("\n=========== Current Order For Table " + tableID + " ==================");
+        System.out.format("+----------------------Ala Carte----------------------------+%n");
         System.out.format("+-----+-----------------------------------------------+-----+%n");
-        System.out.format("| ID  |                     Name                      | Qty |%n");
+        System.out.format("| ID  |                Item Name                      | Qty |%n");
         System.out.format("+-----+-----------------------------------------------+-----+%n");
         String orderFormat = "| %-3d | %-45s | %3d |%n";
-        orderToBePrinted.forEach(
+        orderItemsToBePrinted.forEach(
                 (key, value) -> System.out.printf(orderFormat, Menu_Control.getMenuArrayList().get(key).getItemId() + 1,
                         Menu_Control.getMenuArrayList().get(key).getName(), value));
+        System.out.format("+----------------------Packages-----------------------------+%n");
+        System.out.format("+-----+-----------------------------------------------+-----+%n");
+        System.out.format("| ID  |                Item Name                      | Qty |%n");
+        System.out.format("+-----+-----------------------------------------------+-----+%n");
+        orderPackagesToBePrinted.forEach((key, value) -> System.out.printf(orderFormat,
+                Menu_Control.getPromoPackageList().get(key).getPackageId() + 1,
+                Menu_Control.getPromoPackageList().get(key).getDesc(), value));
     }
 
     // int orderID = orderListManager.orderIDValidCheck(orderIDParam); // sanity

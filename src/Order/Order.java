@@ -49,7 +49,7 @@ public class Order {
 
     public void addItems(int itemID, int quantity) {
         if (orderedItems.containsKey(itemID)) {
-            incrementValueFromKey(itemID, quantity);
+            incrementPromoValueFromKey(itemID, quantity);
         } else {
             orderedItems.put(itemID, quantity);
         }
@@ -58,20 +58,24 @@ public class Order {
 
     public void addPackages(int packageID, int quantity) {
         if (orderedPackages.containsKey(packageID)) {
-            incrementValueFromKey(packageID, quantity);
+            incrementPromoValueFromKey(packageID, quantity);
         } else {
             orderedPackages.put(packageID, quantity);
         }
 
     }
 
-    public void incrementValueFromKey(int key, int increment) {
+    public void incrementItemValueFromKey(int key, int increment) {
         orderedItems.computeIfPresent(key, (k, v) -> v + increment);
+    }
+
+    public void incrementPromoValueFromKey(int key, int increment) {
+        orderedPackages.computeIfPresent(key, (k, v) -> v + increment);
     }
 
     public void removeItems(int itemID, int quantity) {
         if (orderedItems.containsKey(itemID)) {
-            decrementValueFromKey(itemID, quantity);
+            decrementItemValueFromKey(itemID, quantity);
         } else {
             System.out.println("No such item in the existing order");
         }
@@ -80,15 +84,19 @@ public class Order {
 
     public void removePackages(int packageID, int quantity) {
         if (orderedPackages.containsKey(packageID)) {
-            decrementValueFromKey(packageID, quantity);
+            decrementPromoValueFromKey(packageID, quantity);
         } else {
-            System.out.println("No such item in the existing order");
+            System.out.println("No such package in the existing order");
         }
 
     }
 
-    public void decrementValueFromKey(int key, int decrement) {
+    public void decrementItemValueFromKey(int key, int decrement) {
         orderedItems.computeIfPresent(key, (k, v) -> v - decrement);
+    }
+
+    public void decrementPromoValueFromKey(int key, int decrement) {
+        orderedPackages.computeIfPresent(key, (k, v) -> v - decrement);
     }
 
     public void setStaffID(int staffID) {
