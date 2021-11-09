@@ -1,49 +1,70 @@
 package Order;
+
 import java.util.Scanner;
-
-import Menu.MenuItem;
-
+import Menu.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Order {
 
-    private int orderID;
-    //private float totalPriceBeforeTax;
-    //private float totalPriceAfterTax;
-    private int staffID;
+    private int tableID;
+    // private float totalPriceBeforeTax;
+    // private float totalPriceAfterTax;
     private boolean membershipStatus;
-    private ArrayList<MenuItem> orderedItems;
+    private int staffID;
+    private HashMap<Integer, Integer> orderedItems = new HashMap<Integer, Integer>();
 
-    public Order(int orderID, boolean membershipStatus, int staffID){
-        this.orderID= orderID;
-        this.membershipStatus= membershipStatus;
+    public Order(int tableID, boolean membershipStatus, int staffID, HashMap<Integer, Integer> orderedItems) {
+        this.tableID = tableID;
+        this.membershipStatus = membershipStatus;
         this.staffID = staffID;
-        this.orderedItems = new ArrayList<MenuItem>();
-        
-    }
-    
-
-    public ArrayList<MenuItem> getOrderedItems(){
-        return orderedItems;
+        this.orderedItems = orderedItems;
     }
 
-    
-
-    public int getOrderID() {
-        return orderID;
-    }
-
-    public int getStaffID() {
-        return staffID;
+    public int getTableID() {
+        return tableID;
     }
 
     public boolean isMembershipStatus() {
         return membershipStatus;
     }
 
+    public int getStaffID() {
+        return staffID;
+    }
 
-    public void setOrderID(int orderID) {
-        this.orderID = orderID;
+    public void setTableID(int tableID) {
+        this.tableID = tableID;
+    }
+
+    public HashMap<Integer, Integer> getOrderedItems() {
+        return this.orderedItems;
+    }
+
+    public void addItems(int itemID, int quantity) {
+        if (orderedItems.containsKey(itemID)) {
+            incrementValueFromKey(itemID, quantity);
+        } else {
+            orderedItems.put(itemID, quantity);
+        }
+
+    }
+
+    public void incrementValueFromKey(int key, int increment) {
+        orderedItems.computeIfPresent(key, (k, v) -> v + increment);
+    }
+
+    public void removeItems(int itemID, int quantity) {
+        if (orderedItems.containsKey(itemID)) {
+            incrementValueFromKey(itemID, quantity);
+        } else {
+            orderedItems.put(itemID, quantity);
+        }
+
+    }
+
+    public void decrementValueFromKey(int key, int decrement) {
+        orderedItems.computeIfPresent(key, (k, v) -> v - decrement);
     }
 
     public void setStaffID(int staffID) {
