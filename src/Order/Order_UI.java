@@ -6,20 +6,15 @@ import Menu.*;
 public class Order_UI {
     private static Scanner sc = new Scanner(System.in);
 
-    public static void main(String[] args) {
-        Menu_Control.loadMenuItem();
-        showOrderUI();
-    }
-
-    public static void showOrderUI() {
+    public static void display() {
         int input;
         do {
             System.out.println("(1) View a order");
             System.out.println("(2) Create a new order");
-            System.out.println("(3) Add an item to Order");
-            System.out.println("(4) Delete an item from Order");
+            System.out.println("(3) Add item(s) to Order");
+            System.out.println("(4) Delete item(s) from Order");
             System.out.println("(5) Delete an Order");
-            System.out.println("(6) Set and Change Tax Rate");
+            System.out.println("(6) Set and Change Tax Rate\n");
 
             input = sc.nextInt();
 
@@ -70,7 +65,8 @@ public class Order_UI {
     public static void ViewOrder() {
         System.out.println("Please enter the tableID to view order");
         int tableID = sc.nextInt();
-        orderManager.printOrderedItems(tableID);
+        if (orderManager.checkValidOrder(tableID))
+            orderManager.printOrderedItems(tableID);
     }
 
     public static void createNewOrder() {

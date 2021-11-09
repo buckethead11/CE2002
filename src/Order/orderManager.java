@@ -8,6 +8,10 @@ import Menu.*;
 public class orderManager {
     private static HashMap<Integer, Order> orderList = new HashMap<Integer, Order>();
 
+    public static void displayUI() {
+        Order_UI.display();
+    }
+
     public static void makeOrder(int tableID, boolean membershipStatus, int staffID) {
         HashMap<Integer, Integer> orderedItems = new HashMap<Integer, Integer>();
         Order newOrder = new Order(tableID, membershipStatus, staffID, orderedItems);
@@ -46,7 +50,7 @@ public class orderManager {
         System.out.format("+-----+-----------------------------------------------+-----+%n");
         String orderFormat = "| %-3d | %-45s | %3d |%n";
         orderToBePrinted.forEach(
-                (key, value) -> System.out.printf(orderFormat, Menu_Control.getMenuArrayList().get(key).getItemId(),
+                (key, value) -> System.out.printf(orderFormat, Menu_Control.getMenuArrayList().get(key).getItemId() + 1,
                         Menu_Control.getMenuArrayList().get(key).getName(), value));
     }
 
@@ -65,4 +69,12 @@ public class orderManager {
     // }
     // }
 
+    public static boolean checkValidOrder(int tableID) {
+        if (orderList.containsKey(tableID))
+            return true;
+        else {
+            System.out.println("No order for Table " + tableID + ". Please create an order first!");
+            return false;
+        }
+    }
 }

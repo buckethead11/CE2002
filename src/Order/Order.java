@@ -58,7 +58,7 @@ public class Order {
         if (orderedItems.containsKey(itemID)) {
             decrementValueFromKey(itemID, quantity);
         } else {
-            orderedItems.put(itemID, quantity);
+            System.out.println("No such item in the existing order");
         }
 
     }
