@@ -14,13 +14,16 @@ public class Order {
     private int staffID;
     private HashMap<Integer, Integer> orderedItems = new HashMap<Integer, Integer>();
     private HashMap<Integer, Integer> orderedPackages = new HashMap<Integer, Integer>();
+    private double totalPrice;
 
     public Order(int tableID, boolean membershipStatus, int staffID, HashMap<Integer, Integer> orderedItems,
-            HashMap<Integer, Integer> orderedPackages) {
+            HashMap<Integer, Integer> orderedPackages, double totalPrice) {
         this.tableID = tableID;
         this.membershipStatus = membershipStatus;
         this.staffID = staffID;
         this.orderedItems = orderedItems;
+        this.orderedPackages = orderedPackages;
+        this.totalPrice = totalPrice;
     }
 
     public int getTableID() {
@@ -48,6 +51,8 @@ public class Order {
     }
 
     public void addItems(int itemID, int quantity) {
+        // access the price of the item from Menu object and add it to order total price
+        this.totalPrice += (Menu_Control.getMenuArrayList().get(itemID).getPrice() * quantity);
         if (orderedItems.containsKey(itemID)) {
             incrementPromoValueFromKey(itemID, quantity);
         } else {
@@ -57,6 +62,9 @@ public class Order {
     }
 
     public void addPackages(int packageID, int quantity) {
+        // access the price of the package from Menu object and add it to order total
+        // price
+        this.totalPrice += (Menu_Control.getPromoPackageList().get(packageID).getPackagePrice() * quantity);
         if (orderedPackages.containsKey(packageID)) {
             incrementPromoValueFromKey(packageID, quantity);
         } else {
@@ -75,6 +83,8 @@ public class Order {
 
     public void removeItems(int itemID, int quantity) {
         if (orderedItems.containsKey(itemID)) {
+            // access the price of item from Menu object and subtract from order total
+            this.totalPrice -= (Menu_Control.getMenuArrayList().get(itemID).getPrice() * quantity);
             decrementItemValueFromKey(itemID, quantity);
         } else {
             System.out.println("No such item in the existing order");
@@ -84,6 +94,8 @@ public class Order {
 
     public void removePackages(int packageID, int quantity) {
         if (orderedPackages.containsKey(packageID)) {
+            // access the price of package from Menu object and subtract from order total
+            this.totalPrice -= (Menu_Control.getPromoPackageList().get(packageID).getPackagePrice() * quantity);
             decrementPromoValueFromKey(packageID, quantity);
         } else {
             System.out.println("No such package in the existing order");
@@ -105,5 +117,9 @@ public class Order {
 
     public void setMembershipStatus(boolean membershipStatus) {
         this.membershipStatus = membershipStatus;
+    }
+
+    public double getTotalPrice() {
+        return this.totalPrice;
     }
 }

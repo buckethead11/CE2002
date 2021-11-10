@@ -12,30 +12,23 @@ public class orderManager {
         Order_UI.display();
     }
 
+    // create a new blank order
     public static void makeOrder(int tableID, boolean membershipStatus, int staffID) {
-        HashMap<Integer, Integer> orderedItems = new HashMap<Integer, Integer>();
-        HashMap<Integer, Integer> orderedPackages = new HashMap<Integer, Integer>();
-        Order newOrder = new Order(tableID, membershipStatus, staffID, orderedItems, orderedPackages);
+        HashMap<Integer, Integer> orderedItems = new HashMap<Integer, Integer>();// empty orderItem hashmap
+        HashMap<Integer, Integer> orderedPackages = new HashMap<Integer, Integer>();// empty packageItems hashmap
+        Order newOrder = new Order(tableID, membershipStatus, staffID, orderedItems, orderedPackages, 0.00);// initial
+                                                                                                            // price is
+                                                                                                            // 0.00
         orderList.put(tableID, newOrder);
     }
 
+    // delete tableID from orderList map
     public static void removeOrder(int tableID) {
         orderList.remove(tableID);
     }
 
     public static void addItemToOrder(int tableID, int itemID, int quantity) {
         orderList.get(tableID).addItems(itemID, quantity);
-        // int checkedOrderID = orderListManager.orderIDValidCheck(orderID); // sanity
-        // check
-        // // int index = orderListManager.getOrderIDIndex (checkedOrderID);
-
-        // Order orderToAdd = orderListManager.getSingleOrder(orderID);
-        // ArrayList<MenuItem> singleOrder = orderToAdd.getOrderedItems();
-        // for (int i = 0; i < quantity; i++) {// if quantity exceeds one
-        // String itemName = Menu_Control.getMenuItem(itemID).getName();
-        // singleOrder.add(Menu_Control.getMenuItem(itemID));
-        // System.out.println("Item: " + itemName + " Added to " + orderID);
-        // }
 
     }
 
@@ -56,40 +49,32 @@ public class orderManager {
         HashMap<Integer, Integer> orderPackagesToBePrinted = orderList.get(tableID).getOrderedPackages();
         System.out.println("\n=========== Current Order For Table " + tableID + " ==================");
         String orderFormat = "| %-3d | %-45s | %3d |%n";
-        if (!orderItemsToBePrinted.isEmpty()) {
+        if (!orderItemsToBePrinted.isEmpty()) {// only print ala carte header when there is existing order
             System.out.format("+----------------------Ala Carte----------------------------+%n");
             System.out.format("+-----+-----------------------------------------------+-----+%n");
             System.out.format("| ID  |                Item Name                      | Qty |%n");
             System.out.format("+-----+-----------------------------------------------+-----+%n");
+            // iterate through item hashmap, print ID, get name from ID and print
+            // quantity
             orderItemsToBePrinted.forEach((key, value) -> System.out.printf(orderFormat,
                     Menu_Control.getMenuArrayList().get(key).getItemId() + 1,
                     Menu_Control.getMenuArrayList().get(key).getName(), value));
         }
-        if (!orderPackagesToBePrinted.isEmpty()) {
+        if (!orderPackagesToBePrinted.isEmpty()) {// only print package header when there is existing order
             System.out.format("+----------------------Packages-----------------------------+%n");
             System.out.format("+-----+-----------------------------------------------+-----+%n");
             System.out.format("| ID  |                Item Name                      | Qty |%n");
             System.out.format("+-----+-----------------------------------------------+-----+%n");
+            // iterate through package hashmap, print ID, get name from ID and print
+            // quantity
             orderPackagesToBePrinted.forEach((key, value) -> System.out.printf(orderFormat,
                     Menu_Control.getPromoPackageList().get(key).getPackageId() + 1,
                     Menu_Control.getPromoPackageList().get(key).getDesc(), value));
         }
+        System.out.println("\n=========== Current Bill For Table " + tableID + " ==================");
+        System.out.println("Total Bill: $" + orderList.get(tableID).getTotalPrice());
+
     }
-
-    // int orderID = orderListManager.orderIDValidCheck(orderIDParam); // sanity
-    // check
-
-    // Order order = orderListManager.getSingleOrder(orderID); // creating an order
-    // single order object
-
-    // ArrayList<MenuItem> orderedItems = order.getOrderedItems(); // creating an
-    // arraylist object with name
-    // // orderedItems
-    // System.out.println("Items in " + orderID + " :");
-    // for (MenuItem item : orderedItems) {
-    // System.out.println(item.getName()); // printing the names of the items
-    // }
-    // }
 
     public static boolean checkValidOrder(int tableID) {
         if (orderList.containsKey(tableID))
