@@ -1,11 +1,9 @@
 package Table;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.File;
 
 public class Table_Control {
@@ -14,7 +12,7 @@ public class Table_Control {
 	//Gets path of the project directory
 	private static String userHome = System.getProperty("user.dir");
 	public static String pathSeparator = File.separator; 
-	private static String pathToCsv = userHome+ pathSeparator + "src" + pathSeparator + "data"+ pathSeparator + "tables.csv";
+	private static String pathToCsv = userHome + pathSeparator + "data"+ pathSeparator + "tables.csv";
 	
 	//Initialises the table layout
 	public static void init() {
@@ -48,6 +46,5 @@ public class Table_Control {
 	public static ArrayList<Table> getTableLayout(){
 		return tableLayout;
 	}
-
 }
 
