@@ -1,12 +1,13 @@
 import java.util.Scanner;
-
+import Table.Table_Control;
+import Reservation.Reservation_Control;
 public class App {
 	
 
 	public static void main(String[] args) {
 		//Initialize controllers (add on controllers for those that needs to be initialized)
 		Table_Control.init();
-		
+		Reservation_Control.init();
 		//Show main menu UI
 		Scanner sc = new Scanner(System.in);
 		int choice;
