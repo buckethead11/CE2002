@@ -21,7 +21,7 @@ public class Order_UI {
 
             switch (input) {
             case 1: // view an order
-                ViewOrder();
+                ViewOrderUI();
                 break;
             // } catch (Exception e) {
             // System.out.println("Error: Please enter a valid input");
@@ -29,56 +29,45 @@ public class Order_UI {
 
             case 2: // create a new Order
                 // try {
-                createNewOrder();
+                createNewOrderUI();
                 // } catch (Exception e) {
                 // System.out.println("Please enter an integer for Order Number or Staff ID");
                 // }
                 break;
 
             case 3:// add an item into order
-                addItem();
+                addItemUI();
                 break;
 
             case 4:// delete an item from order
-                deleteItem();
+                deleteItemUI();
 
                 break;
 
             case 5: // Delete an order
                 // System.out.println("Printing out all the orders");
                 // orderManager.getAllOrders();
-                deleteOrder();
+                deleteOrderUI();
                 break;
             case 6:
-                System.out.println("Enter TableID to checkout");
-                int tableID = sc.nextInt();
-                System.out.println("Are you a member?");
-                boolean member = sc.nextBoolean();
-                orderManager.printOrderInvoice(tableID, member);
+                tableCheckoutUI();
                 break;
             case 7:
-                System.out.println("Enter new discount rate percentage");
-                double discountRate = sc.nextDouble();
-                System.out.println("Enter new government tax rate percentage");
-                double governmentTaxRate = sc.nextDouble();
-                OrderInvoice.setGSTRate(governmentTaxRate);
-                OrderInvoice.setDiscountRate(discountRate);
-                System.out.println("Updated Membership discount rate: " + discountRate
-                        + " Updated government tax rate: " + governmentTaxRate);
-                break;
+                editRatesUI();
 
+                break;
             }
         } while (true);
     }
 
-    public static void ViewOrder() {
+    public static void ViewOrderUI() {
         System.out.println("Please enter the tableID to view order");
         int tableID = sc.nextInt();
         if (orderManager.checkValidOrder(tableID))
             orderManager.printOrderedItems(tableID);
     }
 
-    public static void createNewOrder() {
+    public static void createNewOrderUI() {
         System.out.println("Enter Table ID");
         int tableID = sc.nextInt();
         System.out.println("Enter Staff ID");
@@ -87,25 +76,25 @@ public class Order_UI {
 
     }
 
-    public static void deleteOrder() {
+    public static void deleteOrderUI() {
         System.out.println("Which tableID order do you want to delete?");
         int tableID = sc.nextInt();
         orderManager.removeOrder(tableID);
     }
 
-    public static void addItem() {
+    public static void addItemUI() {
         System.out.println("Pleaes key in the tableID you want to add order");
         int tableID = sc.nextInt();
         System.out.println("(1) Add ala carte item");
         System.out.println("(2) Add promo package item");
         int choice = sc.nextInt();
         if (choice == 1)
-            addMenuItem(tableID);
+            addMenuItemUI(tableID);
         if (choice == 2)
-            addPackage(tableID);
+            addPackageUI(tableID);
     }
 
-    public static void deleteItem() {
+    public static void deleteItemUI() {
         System.out.println("Please key in the tableID you want to remove order");
         // try {
         int tableID = sc.nextInt();
@@ -113,15 +102,34 @@ public class Order_UI {
         System.out.println("(2) Remove promo package item");
         int choice = sc.nextInt();
         if (choice == 1)
-            deleteMenuItem(tableID);
+            deleteMenuItemUI(tableID);
         if (choice == 2)
-            deletePackageItem(tableID);
+            deletePackageItemUI(tableID);
         // } catch (Exception e) {
         // System.out.println("Error: Please enter a valid value");
         // }
     }
 
-    public static void addMenuItem(int tableID) {
+    public static void tableCheckoutUI() {
+        System.out.println("Enter TableID to checkout");
+        int tableID = sc.nextInt();
+        System.out.println("Are you a member?");
+        boolean member = sc.nextBoolean();
+        orderManager.printOrderInvoice(tableID, member);
+    }
+
+    public static void editRatesUI() {
+        System.out.println("Enter new discount rate percentage");
+        double discountRate = sc.nextDouble();
+        System.out.println("Enter new government tax rate percentage");
+        double governmentTaxRate = sc.nextDouble();
+        OrderInvoice.setGSTRate(governmentTaxRate);
+        OrderInvoice.setDiscountRate(discountRate);
+        System.out.println("Updated Membership discount rate: " + discountRate + " Updated government tax rate: "
+                + governmentTaxRate);
+    }
+
+    public static void addMenuItemUI(int tableID) {
         Menu_Control.showMenu();
         System.out.println("Please enter itemID to be added with above list for reference");
         int itemID = sc.nextInt();
@@ -130,7 +138,7 @@ public class Order_UI {
         orderManager.addItemToOrder(tableID, itemID - 1, quanitity);
     }
 
-    public static void addPackage(int tableID) {
+    public static void addPackageUI(int tableID) {
         Menu_Control.showPromotionPackage();
         System.out.println("Please enter packageID to be added with above list for reference");
         int itemID = sc.nextInt();
@@ -139,7 +147,7 @@ public class Order_UI {
         orderManager.addPackageToOrder(tableID, itemID - 1, quanitity);
     }
 
-    public static void deleteMenuItem(int tableID) {
+    public static void deleteMenuItemUI(int tableID) {
         orderManager.printOrderedItems(tableID);
         System.out.println("Please enter ala carte itemID to be deleted ");
         int itemID = sc.nextInt();
@@ -148,7 +156,7 @@ public class Order_UI {
         orderManager.removeItemFromOrder(tableID, itemID - 1, quantity);
     }
 
-    public static void deletePackageItem(int tableID) {
+    public static void deletePackageItemUI(int tableID) {
         orderManager.printOrderedItems(tableID);
         System.out.println("Please enter package itemID to be deleted ");
         int itemID = sc.nextInt();

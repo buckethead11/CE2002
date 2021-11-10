@@ -33,22 +33,22 @@ public class Menu_UI {
                     Menu_Control.showPromotionPackage();
                     break;
                 case 3:
-                    addMenuItem();
+                    addMenuItemUI();
                     break;
                 case 4:
-                    updateMenuItem();
+                    updateMenuItemUI();
                     break;
                 case 5:
-                    deleteMenuItem();
+                    deleteMenuItemUI();
                     break;
                 case 6:
-                    addPromoPackage();
+                    addPromoPackageUI();
                     break;
                 case 7:
-                    updatePromoPackage();
+                    updatePromoPackageUI();
                     break;
                 case 8:
-                    deletePromoPackage();
+                    deletePromoPackageUI();
                     break;
                 case 9:
                     return;
@@ -57,7 +57,7 @@ public class Menu_UI {
         }
     }
 
-    public static void addMenuItem() {
+    public static void addMenuItemUI() {
         System.out.print("The type of the new item (MAIN/DRINK/DESSERT):");
         String type = sc.nextLine();
         System.out.print("The name of the new item:");
@@ -71,7 +71,7 @@ public class Menu_UI {
         System.out.print(name + " added!\n");
     }
 
-    public static void updateMenuItem() {
+    public static void updateMenuItemUI() {
         System.out.println("What do you want to update?");
         System.out.println("(1) Update Menu Item Description");
         System.out.println("(2) Update Menu Item Price");
@@ -106,7 +106,7 @@ public class Menu_UI {
 
     }
 
-    public static void deleteMenuItem() {
+    public static void deleteMenuItemUI() {
         System.out.println("Current Menu for Reference");
         Menu_Control.showMenu();
         System.out.print("The item ID to be deleted:\t");
@@ -117,7 +117,7 @@ public class Menu_UI {
         System.out.print("Item ID " + id + " " + name + " deleted!\n");
     }
 
-    public static void addPromoPackage() {
+    public static void addPromoPackageUI() {
         System.out.print("The description of the new promo package:\t");
         String description = sc.nextLine();
         System.out.print("The price of the new promo package:\t");
@@ -127,7 +127,7 @@ public class Menu_UI {
         System.out.print("New promo package added!\n");
     }
 
-    public static void updatePromoPackage() {
+    public static void updatePromoPackageUI() {
         System.out.println("What do you want to update?");
         System.out.println("(1) Update promo package Description");
         System.out.println("(2) Update promo package Price");
@@ -160,7 +160,7 @@ public class Menu_UI {
 
     }
 
-    public static void deletePromoPackage() {
+    public static void deletePromoPackageUI() {
         System.out.println("Current promo package for Reference");
         Menu_Control.showPromotionPackage();
         System.out.print("The promo package ID to be deleted:\t");
