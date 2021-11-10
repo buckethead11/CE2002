@@ -1,9 +1,8 @@
-package reservations;
+package Reservation;
 
 import java.util.Date;
 import java.util.Iterator;
 
-import Table.Table;
 import Table.Table_Control;
 
 import java.io.BufferedReader;
@@ -21,7 +20,7 @@ public class Reservation_Control{
 	//Gets path of the project directory
 	private static String userHome = System.getProperty("user.dir");
 	public static String pathSeparator = File.separator; 
-	private static String pathToCsv = userHome+ pathSeparator + "src" + pathSeparator + "data"+ pathSeparator + "reservations.csv";
+	private static String pathToCsv = userHome+ pathSeparator + "data"+ pathSeparator + "reservations.csv";
 
 	public static void init() {
 		//create an array list of reservations
@@ -75,8 +74,9 @@ public class Reservation_Control{
 			SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yy HH:mm");
 			Date d = dateFormatter.parse(date + " "+time);
 			reserveDate.setTime(d);
-			//Check tables to see if any can fit the pax. checktable returns an array of possible tableID
+			
 			//Checks through the available tables to see if any of them has a clashing reservation
+			
 			int tableID = Reservation_Control.checkAvailable(pax, reserveDate);
 			if(tableID ==-1) {
 				System.out.println("No tables available");
@@ -85,10 +85,11 @@ public class Reservation_Control{
 				Reservation newreservation = new Reservation(reserveDate,  pax, name, contact, tableID);
 				
 				reservationList.add(newreservation);
+				//Update the table layout
+				Table_Control.getTableLayout().get(tableID-1).setOccupied(true);
 				System.out.println("Reservation Created!");
 			}
 			}catch(java.text.ParseException e) {
-	            // TODO Auto-generated catch block
 	            System.out.println("Please input your date and time in the correct format!");
 	        }
 		
@@ -156,7 +157,6 @@ public class Reservation_Control{
 	
 	public static int checkAvailable(int pax,Calendar reservedDate) {
 		int tableID = -1;
-		ArrayList<Integer> tables = new ArrayList<Integer>();
 		//Iterates through each table in the layout to check for pax and occupied. If not occupied, return the table ID
 		for (int i = 0; i<Table_Control.getTableLayout().size();i++) {
 			//Deals with even pax requests
@@ -170,16 +170,8 @@ public class Reservation_Control{
 				
 			}
 		}
-		//if all proposed tables is occupied, check the reservations list to see if the occupied table has a clashing reservation
-		if (tableID == -1) {
-			//iterates through reservation list to see if table has a clashing reservation
-			for (int j = 0; j<reservationList.size();j++) {
-				
-			}
-			return tableID;
-		}else {
-			return tableID;
-		}
+		
+		return tableID;
 	}
 	
 	public static void saveReservation() {
@@ -203,7 +195,7 @@ public class Reservation_Control{
 	        writer.flush();
 	        writer.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		for (int i =0;i<reservationList.size();i++) {
@@ -211,7 +203,7 @@ public class Reservation_Control{
 			Calendar date = reservationList.get(i).getDateTime();
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
 			String strDate = dateFormat.format(date.getTime());
-			//Print out reservation bookings
+			//Print out reservation bookings used for debugging, remove later
 			System.out.println("Resevation name: " +reservationList.get(i).getName() );
 			System.out.println("Resevation date and time: " + strDate);
 			System.out.println("Resevation pax: " + reservationList.get(i).getPax());
