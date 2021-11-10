@@ -47,7 +47,7 @@ public class orderManager {
     public static void printOrderedItems(int tableID) {
         HashMap<Integer, Integer> orderItemsToBePrinted = orderList.get(tableID).getOrderedItems();
         HashMap<Integer, Integer> orderPackagesToBePrinted = orderList.get(tableID).getOrderedPackages();
-        System.out.println("\n================  Order For Table " + tableID + " ======================");
+        System.out.println("\n===================  Order For Table " + tableID + " ======================");
         String orderFormat = "| %-3d | %-45s | %3d |%n";
         if (!orderItemsToBePrinted.isEmpty()) {// only print ala carte header when there is existing order
             System.out.format("+----------------------Ala Carte----------------------------+%n");
