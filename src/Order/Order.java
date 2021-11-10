@@ -10,16 +10,16 @@ public class Order {
     private int tableID;
     // private float totalPriceBeforeTax;
     // private float totalPriceAfterTax;
-    private boolean membershipStatus;
+    // private boolean membershipStatus;
     private int staffID;
     private HashMap<Integer, Integer> orderedItems = new HashMap<Integer, Integer>();
     private HashMap<Integer, Integer> orderedPackages = new HashMap<Integer, Integer>();
     private double totalPrice;
 
-    public Order(int tableID, boolean membershipStatus, int staffID, HashMap<Integer, Integer> orderedItems,
+    public Order(int tableID, int staffID, HashMap<Integer, Integer> orderedItems,
             HashMap<Integer, Integer> orderedPackages, double totalPrice) {
         this.tableID = tableID;
-        this.membershipStatus = membershipStatus;
+        // this.membershipStatus = membershipStatus;
         this.staffID = staffID;
         this.orderedItems = orderedItems;
         this.orderedPackages = orderedPackages;
@@ -30,9 +30,9 @@ public class Order {
         return tableID;
     }
 
-    public boolean isMembershipStatus() {
-        return membershipStatus;
-    }
+    // public boolean isMembershipStatus() {
+    // return membershipStatus;
+    // }
 
     public int getStaffID() {
         return staffID;
@@ -115,9 +115,9 @@ public class Order {
         this.staffID = staffID;
     }
 
-    public void setMembershipStatus(boolean membershipStatus) {
-        this.membershipStatus = membershipStatus;
-    }
+    // public void setMembershipStatus(boolean membershipStatus) {
+    // this.membershipStatus = membershipStatus;
+    // }
 
     public double getTotalPrice() {
         return this.totalPrice;

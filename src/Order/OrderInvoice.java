@@ -1,65 +1,44 @@
 
 package Order;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+import Menu.*;
 
 public class OrderInvoice {
 
-    /**
-     * Order for which this invoice was generated for
-     */
-    private Order order; // to combine with order class
+    private Order order;
 
-    /**
-     * Auto-generated invoice number of this invoice
-     */
     private int invoiceNumber;
 
-    /**
-     * Gst charged for the order
-     */
+    private double price;
+
     private double gstAmount;
 
     private double discountAmount;
 
-    /**
-     * Price charge for the order, excluding gst
-     */
-    private double price;
+    private Calendar dateGenerated;
 
-    /**
-     * Total price charged for the order
-     */
     private double totalPrice;
 
-    private double finalPrice; // final price after member discount
-    /**
-     * Date the invoice was generated
-     */
-    private Calendar dateGenerated;
+    private double finalPrice;
 
     private boolean haveMembership;
 
-    private static final double discountRate = 0.15;
+    private static double discountRate;
 
-    /**
-     * GST percentage to be applied on price charged on order
-     */
-    public static final double GSTPERCENTAGE = 0.07;
+    private static double gstRate;
 
-    /**
-     * Create a new invoice which will be tagged to an order.
-     * 
-     * @param order Order the invoice is generated for
-     */
-    public OrderInvoice(Order order) {
+    public OrderInvoice(Order order, boolean member) {
         this.order = order;
-        this.invoiceNumber = Calendar.getInstance().hashCode();
-        this.price = order.calculateTotalOrderPrice();
+        this.invoiceNumber = Math.abs(Calendar.getInstance().hashCode());
+        this.price = order.getTotalPrice();
+        this.gstAmount = gstRate / 100 * price;
+        this.discountAmount = discountRate / 100 * price;
         this.dateGenerated = Calendar.getInstance();
-        this.gstAmount = Math.round(GSTPERCENTAGE * this.price * 100.0) / 100.0;
         this.totalPrice = (this.price + this.gstAmount);
-        this.discountAmount = Math.round(discountRate * this.totalPrice * 100.0) / 100.0;
+        this.haveMembership = member;
         if (haveMembership) {
             this.finalPrice = this.totalPrice - this.discountAmount;
         } else
@@ -68,16 +47,24 @@ public class OrderInvoice {
 
     /**
      * Get the date invoice was generated
-     * 
+     *
      * @return This invoice date
      */
     public Calendar getDateGenerated() {
         return dateGenerated;
     }
 
+    public static void setGSTRate(double rate) {
+        OrderInvoice.gstRate = rate;
+    }
+
+    public static void setDiscountRate(double rate) {
+        OrderInvoice.discountRate = rate;
+    }
+
     /**
      * Get the total price chargeable for the invoice
-     * 
+     *
      * @return This invoice price
      */
     public double getTotalPrice() {
@@ -86,7 +73,7 @@ public class OrderInvoice {
 
     /**
      * Get the order of this invoice
-     * 
+     *
      * @return This invoice order
      */
     public Order getOrder() {
@@ -97,15 +84,46 @@ public class OrderInvoice {
      * Print this invoice
      */
     public void printInvoice() {
-        System.out.println("Date & Time: " + this.order.getDateTime());
-        System.out.println("Order Taken by: " + this.order.getStaffName());
-        System.out.println("Invoice Number: " + this.invoiceNumber);
-        System.out.println("Items ordered: " + this.order);
-        System.out.println("Subtotal: " + price);
-        System.out.println("GST: " + gstAmount);
-        System.out.println("Total: " + totalPrice);
-        System.out.println("Member Discount: " + discountAmount);
-        System.out.println("Grand Total: " + finalPrice);
+        HashMap<Integer, Integer> orderItemsToBePrinted = this.order.getOrderedItems();
+        HashMap<Integer, Integer> orderPackagesToBePrinted = this.order.getOrderedPackages();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        System.out.println(
+                "\n================  Final Invoice For Table " + this.order.getTableID() + " =================");
+        String invoiceInfoFormat = "|%-45s  %12d|%n";
+        System.out.println(
+                "---------------------" + formatter.format(this.dateGenerated.getTime()) + "---------------------");
+        System.out.printf(invoiceInfoFormat, "Order Taken by: ", this.order.getStaffID());
+        System.out.printf(invoiceInfoFormat, "Invoice Number: ", this.invoiceNumber);
+        String orderFormat = "| %-3d | %-45s | %3d |%n";
+        if (!orderItemsToBePrinted.isEmpty()) {// only print ala carte header when there is existing order
+            System.out.format("+----------------------Ala Carte----------------------------+%n");
+            System.out.format("+-----+-----------------------------------------------+-----+%n");
+            System.out.format("| ID  |                Item Name                      | Qty |%n");
+            System.out.format("+-----+-----------------------------------------------+-----+%n");
+            // iterate through item hashmap, print ID, get name from ID and print
+            // quantity
+            orderItemsToBePrinted.forEach((key, value) -> System.out.printf(orderFormat,
+                    Menu_Control.getMenuArrayList().get(key).getItemId() + 1,
+                    Menu_Control.getMenuArrayList().get(key).getName(), value));
+        }
+        if (!orderPackagesToBePrinted.isEmpty()) {// only print package header when there is existing order
+            System.out.format("+----------------------Packages-----------------------------+%n");
+            System.out.format("+-----+-----------------------------------------------+-----+%n");
+            System.out.format("| ID  |         Package Description                   | Qty |%n");
+            System.out.format("+-----+-----------------------------------------------+-----+%n");
+            // iterate through package hashmap, print ID, get name from ID and print
+            // quantity
+            orderPackagesToBePrinted.forEach((key, value) -> System.out.printf(orderFormat,
+                    Menu_Control.getPromoPackageList().get(key).getPackageId() + 1,
+                    Menu_Control.getPromoPackageList().get(key).getDesc(), value));
+        }
+        String amountFormat = "|%-46s   %10.2f|%n";
+        System.out.format("=============================================================%n");
+        System.out.printf(amountFormat, "Subtotal:", this.price);
+        System.out.printf(amountFormat, "GST:", this.gstAmount);
+        System.out.printf(amountFormat, "Total:", this.totalPrice);
+        System.out.printf(amountFormat, "Member Discount:", this.discountAmount);
+        System.out.printf(amountFormat, "Grand Total:", this.finalPrice);
     }
 
 }

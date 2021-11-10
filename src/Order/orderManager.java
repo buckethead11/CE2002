@@ -6,6 +6,7 @@ import java.util.Scanner;
 import Menu.*;
 
 public class orderManager {
+
     private static HashMap<Integer, Order> orderList = new HashMap<Integer, Order>();
 
     public static void displayUI() {
@@ -13,12 +14,11 @@ public class orderManager {
     }
 
     // create a new blank order
-    public static void makeOrder(int tableID, boolean membershipStatus, int staffID) {
+    public static void makeOrder(int tableID, int staffID) {
         HashMap<Integer, Integer> orderedItems = new HashMap<Integer, Integer>();// empty orderItem hashmap
         HashMap<Integer, Integer> orderedPackages = new HashMap<Integer, Integer>();// empty packageItems hashmap
-        Order newOrder = new Order(tableID, membershipStatus, staffID, orderedItems, orderedPackages, 0.00);// initial
-                                                                                                            // price is
-                                                                                                            // 0.00
+        // initial price 0.00
+        Order newOrder = new Order(tableID, staffID, orderedItems, orderedPackages, 0.00);
         orderList.put(tableID, newOrder);
     }
 
@@ -47,7 +47,7 @@ public class orderManager {
     public static void printOrderedItems(int tableID) {
         HashMap<Integer, Integer> orderItemsToBePrinted = orderList.get(tableID).getOrderedItems();
         HashMap<Integer, Integer> orderPackagesToBePrinted = orderList.get(tableID).getOrderedPackages();
-        System.out.println("\n=========== Current Order For Table " + tableID + " ==================");
+        System.out.println("\n================  Order For Table " + tableID + " ======================");
         String orderFormat = "| %-3d | %-45s | %3d |%n";
         if (!orderItemsToBePrinted.isEmpty()) {// only print ala carte header when there is existing order
             System.out.format("+----------------------Ala Carte----------------------------+%n");
@@ -63,7 +63,7 @@ public class orderManager {
         if (!orderPackagesToBePrinted.isEmpty()) {// only print package header when there is existing order
             System.out.format("+----------------------Packages-----------------------------+%n");
             System.out.format("+-----+-----------------------------------------------+-----+%n");
-            System.out.format("| ID  |                Item Name                      | Qty |%n");
+            System.out.format("| ID  |         Package Description                   | Qty |%n");
             System.out.format("+-----+-----------------------------------------------+-----+%n");
             // iterate through package hashmap, print ID, get name from ID and print
             // quantity
@@ -71,8 +71,8 @@ public class orderManager {
                     Menu_Control.getPromoPackageList().get(key).getPackageId() + 1,
                     Menu_Control.getPromoPackageList().get(key).getDesc(), value));
         }
-        System.out.println("\n=========== Current Bill For Table " + tableID + " ==================");
-        System.out.println("Total Bill: $" + orderList.get(tableID).getTotalPrice());
+        System.out.println("\n=============== Current Bill For Table " + tableID + " ====================");
+        System.out.println("Subtotal (Before Discount and Tax): $" + orderList.get(tableID).getTotalPrice());
 
     }
 
@@ -83,5 +83,11 @@ public class orderManager {
             System.out.println("No order for Table " + tableID + ". Please create an order first!");
             return false;
         }
+    }
+
+    public static void printOrderInvoice(int tableID, boolean member) {
+        Order order = orderList.get(tableID);
+        OrderInvoice orderInvoice = new OrderInvoice(order, member);
+        orderInvoice.printInvoice();
     }
 }

@@ -12,9 +12,10 @@ public class Order_UI {
             System.out.println("(1) View a order");
             System.out.println("(2) Create a new order");
             System.out.println("(3) Add item(s) to Order");
-            System.out.println("(4) Delete item(s) from Order");
+            System.out.println("(4) Remove item(s) from Order");
             System.out.println("(5) Delete an Order");
-            System.out.println("(6) Set and Change Tax Rate\n");
+            System.out.println("(6) Close a bill + Print Order Invoice");
+            System.out.println("(7) Set and Change Tax Rate\n");
 
             input = sc.nextInt();
 
@@ -49,13 +50,21 @@ public class Order_UI {
                 deleteOrder();
                 break;
             case 6:
-                System.out.println("Enter new service charge rate percentage (whole numbers only)");
-                int serviceChargeRate = sc.nextInt();
-                System.out.println("Enter new government tax rate percentage (whole numbers only)");
-                int governmentTaxRate = sc.nextInt();
-                // orderPriceCalculator.taxRate(serviceChargeRate,governmentTaxRate)
-                System.out.println("Updated Service Charge: " + serviceChargeRate + " Updated government tax rate: "
-                        + governmentTaxRate);
+                System.out.println("Enter TableID to checkout");
+                int tableID = sc.nextInt();
+                System.out.println("Are you a member?");
+                boolean member = sc.nextBoolean();
+                orderManager.printOrderInvoice(tableID, member);
+                break;
+            case 7:
+                System.out.println("Enter new discount rate percentage");
+                double discountRate = sc.nextDouble();
+                System.out.println("Enter new government tax rate percentage");
+                double governmentTaxRate = sc.nextDouble();
+                OrderInvoice.setGSTRate(governmentTaxRate);
+                OrderInvoice.setDiscountRate(discountRate);
+                System.out.println("Updated Membership discount rate: " + discountRate
+                        + " Updated government tax rate: " + governmentTaxRate);
                 break;
 
             }
@@ -74,9 +83,7 @@ public class Order_UI {
         int tableID = sc.nextInt();
         System.out.println("Enter Staff ID");
         int staffID = sc.nextInt();
-        System.out.println("Membership (TRUE/FALSE)");
-        boolean membership = sc.nextBoolean();
-        orderManager.makeOrder(tableID, membership, staffID);
+        orderManager.makeOrder(tableID, staffID);
 
     }
 
