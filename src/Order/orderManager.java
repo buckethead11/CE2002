@@ -55,21 +55,25 @@ public class orderManager {
         HashMap<Integer, Integer> orderItemsToBePrinted = orderList.get(tableID).getOrderedItems();
         HashMap<Integer, Integer> orderPackagesToBePrinted = orderList.get(tableID).getOrderedPackages();
         System.out.println("\n=========== Current Order For Table " + tableID + " ==================");
-        System.out.format("+----------------------Ala Carte----------------------------+%n");
-        System.out.format("+-----+-----------------------------------------------+-----+%n");
-        System.out.format("| ID  |                Item Name                      | Qty |%n");
-        System.out.format("+-----+-----------------------------------------------+-----+%n");
         String orderFormat = "| %-3d | %-45s | %3d |%n";
-        orderItemsToBePrinted.forEach(
-                (key, value) -> System.out.printf(orderFormat, Menu_Control.getMenuArrayList().get(key).getItemId() + 1,
-                        Menu_Control.getMenuArrayList().get(key).getName(), value));
-        System.out.format("+----------------------Packages-----------------------------+%n");
-        System.out.format("+-----+-----------------------------------------------+-----+%n");
-        System.out.format("| ID  |                Item Name                      | Qty |%n");
-        System.out.format("+-----+-----------------------------------------------+-----+%n");
-        orderPackagesToBePrinted.forEach((key, value) -> System.out.printf(orderFormat,
-                Menu_Control.getPromoPackageList().get(key).getPackageId() + 1,
-                Menu_Control.getPromoPackageList().get(key).getDesc(), value));
+        if (!orderItemsToBePrinted.isEmpty()) {
+            System.out.format("+----------------------Ala Carte----------------------------+%n");
+            System.out.format("+-----+-----------------------------------------------+-----+%n");
+            System.out.format("| ID  |                Item Name                      | Qty |%n");
+            System.out.format("+-----+-----------------------------------------------+-----+%n");
+            orderItemsToBePrinted.forEach((key, value) -> System.out.printf(orderFormat,
+                    Menu_Control.getMenuArrayList().get(key).getItemId() + 1,
+                    Menu_Control.getMenuArrayList().get(key).getName(), value));
+        }
+        if (!orderPackagesToBePrinted.isEmpty()) {
+            System.out.format("+----------------------Packages-----------------------------+%n");
+            System.out.format("+-----+-----------------------------------------------+-----+%n");
+            System.out.format("| ID  |                Item Name                      | Qty |%n");
+            System.out.format("+-----+-----------------------------------------------+-----+%n");
+            orderPackagesToBePrinted.forEach((key, value) -> System.out.printf(orderFormat,
+                    Menu_Control.getPromoPackageList().get(key).getPackageId() + 1,
+                    Menu_Control.getPromoPackageList().get(key).getDesc(), value));
+        }
     }
 
     // int orderID = orderListManager.orderIDValidCheck(orderIDParam); // sanity
