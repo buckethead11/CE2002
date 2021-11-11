@@ -26,16 +26,16 @@ public class OrderInvoice {
 
     private boolean haveMembership;
 
-    private static double discountRate;
+    private static double discountRatePercentage = 10;
 
-    private static double gstRate;
+    private static double gstRatePercentage = 7;
 
     public OrderInvoice(Order order, boolean member) {
         this.order = order;
         this.invoiceNumber = Math.abs(Calendar.getInstance().hashCode());
         this.price = order.getTotalPrice();
-        this.gstAmount = gstRate / 100 * price;
-        this.discountAmount = discountRate / 100 * price;
+        this.gstAmount = gstRatePercentage / 100 * price;
+        this.discountAmount = discountRatePercentage / 100 * price;
         this.dateGenerated = Calendar.getInstance();
         this.totalPrice = (this.price + this.gstAmount);
         this.haveMembership = member;
@@ -55,11 +55,11 @@ public class OrderInvoice {
     }
 
     public static void setGSTRate(double rate) {
-        OrderInvoice.gstRate = rate;
+        OrderInvoice.gstRatePercentage = rate;
     }
 
     public static void setDiscountRate(double rate) {
-        OrderInvoice.discountRate = rate;
+        OrderInvoice.discountRatePercentage = rate;
     }
 
     /**

@@ -7,12 +7,9 @@ public class Menu_UI {
     static Scanner sc = new Scanner(System.in);
 
     public static void display() {
-        // Menu_Control.loadMenuItem();
-        // Menu_Control.loadPromo();
         {
             do {
-                System.out.println("================MENU/PROMO PACKAGE======================");
-                System.out.println("What do you want to do?");
+                System.out.println("\n================MENU/PROMO PACKAGE======================");
                 System.out.println("(1) View Menu");
                 System.out.println("(2) View Promo Package");
                 System.out.println("(3) Add Menu Item");
@@ -21,8 +18,9 @@ public class Menu_UI {
                 System.out.println("(6) Add Promo Package");
                 System.out.println("(7) Update Promo Package");
                 System.out.println("(8) Delete Promo Package");
-                System.out.println("(9) Go back");
+                System.out.println("(9) Return to main menu");
                 System.out.println("========================================================");
+                System.out.print("What do you want to do? ");
                 choice = sc.nextInt();
                 sc.nextLine();
                 switch (choice) {

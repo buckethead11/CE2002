@@ -11,18 +11,19 @@ public class App {
 		// initialized)
 		Table_Control.init();
 		Reservation_Control.init();
+		Menu_Control.init();
 		// Show main menu UI
 		Scanner sc = new Scanner(System.in);
 		int choice;
 		do {
-			System.out.println("==============================");
-			System.out.println("Main Menu");
-			System.out.println("(1) Edit Menu");
+			System.out.println("\n============OODP RESTAURANT MAIN MENU===============");
+			System.out.println("(1) Menu");
 			System.out.println("(2) Reservations");
-			System.out.println("(3) Edit Order");
+			System.out.println("(3) Order");
 			System.out.println("(4) View Sales Report");
 			System.out.println("(5) Log out");
-			System.out.println("==============================");
+			System.out.println("====================================================");
+			System.out.print("Where do you want to go? ");
 			choice = sc.nextInt();
 			switch (choice) {
 			case 1:
@@ -38,7 +39,10 @@ public class App {
 
 				break;
 			case 5: // Exit
-				System.out.println("Exiting...");
+				System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+				System.out.println("THANK YOU FOR USING OUR OODP RESTAURANT APP");
+				System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+
 				break;
 			}
 		} while (choice < 5);

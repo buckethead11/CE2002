@@ -14,6 +14,7 @@ public class Menu_Control {
     public static void init() {
         loadMenuItem();
         loadPromo();
+        System.out.println("Menu loaded");
     }
 
     public static void displayUI() {
@@ -40,8 +41,8 @@ public class Menu_Control {
 
     }
 
-    public static MenuItem getMenuItem(int itemID){
-        return MenuList.get(itemID-1);
+    public static MenuItem getMenuItem(int itemID) {
+        return MenuList.get(itemID - 1);
     }
 
     public static void loadMenuItem() {

@@ -9,14 +9,17 @@ public class Order_UI {
     public static void display() {
         int input;
         do {
+            System.out.println("\n===============ORDER================");
             System.out.println("(1) View a order");
             System.out.println("(2) Create a new order");
             System.out.println("(3) Add item(s) to Order");
             System.out.println("(4) Remove item(s) from Order");
             System.out.println("(5) Delete an Order");
             System.out.println("(6) Close a bill + Print Order Invoice");
-            System.out.println("(7) Set and Change Tax Rate\n");
-
+            System.out.println("(7) Set and Change Tax Rate");
+            System.out.println("(8) Return to main menu");
+            System.out.println("====================================");
+            System.out.print("What do you want to do? ");
             input = sc.nextInt();
 
             switch (input) {
@@ -54,8 +57,9 @@ public class Order_UI {
                 break;
             case 7:
                 editRatesUI();
-
                 break;
+            case 8:
+                return;
             }
         } while (true);
     }
@@ -70,7 +74,7 @@ public class Order_UI {
     public static void createNewOrderUI() {
         System.out.println("Enter Table ID");
         int tableID = sc.nextInt();
-        System.out.println("Enter Staff ID");
+        System.out.println("Enter your Staff ID");
         int staffID = sc.nextInt();
         Order_Control.makeOrder(tableID, staffID);
 
