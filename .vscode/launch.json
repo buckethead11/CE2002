@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Sales_UI",
+            "request": "launch",
+            "mainClass": "Sales.Sales_UI",
+            "projectName": "CE2002_f25cfd02"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"
