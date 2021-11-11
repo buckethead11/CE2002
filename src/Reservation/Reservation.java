@@ -1,4 +1,4 @@
-package Reservations;
+package Reservation;
 
 import java.util.Calendar;
 
