@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 import Menu.*;
 
-public class orderManager {
+public class Order_Control {
 
     private static HashMap<Integer, Order> orderList = new HashMap<Integer, Order>();
 

@@ -63,8 +63,8 @@ public class Order_UI {
     public static void ViewOrderUI() {
         System.out.println("Please enter the tableID to view order");
         int tableID = sc.nextInt();
-        if (orderManager.checkValidOrder(tableID))
-            orderManager.printOrderedItems(tableID);
+        if (Order_Control.checkValidOrder(tableID))
+            Order_Control.printOrderedItems(tableID);
     }
 
     public static void createNewOrderUI() {
@@ -72,14 +72,14 @@ public class Order_UI {
         int tableID = sc.nextInt();
         System.out.println("Enter Staff ID");
         int staffID = sc.nextInt();
-        orderManager.makeOrder(tableID, staffID);
+        Order_Control.makeOrder(tableID, staffID);
 
     }
 
     public static void deleteOrderUI() {
         System.out.println("Which tableID order do you want to delete?");
         int tableID = sc.nextInt();
-        orderManager.removeOrder(tableID);
+        Order_Control.removeOrder(tableID);
     }
 
     public static void addItemUI() {
@@ -115,7 +115,7 @@ public class Order_UI {
         int tableID = sc.nextInt();
         System.out.println("Are you a member?");
         boolean member = sc.nextBoolean();
-        orderManager.printOrderInvoice(tableID, member);
+        Order_Control.printOrderInvoice(tableID, member);
     }
 
     public static void editRatesUI() {
@@ -135,7 +135,7 @@ public class Order_UI {
         int itemID = sc.nextInt();
         System.out.println("Please enter Quantity");
         int quanitity = sc.nextInt();
-        orderManager.addItemToOrder(tableID, itemID - 1, quanitity);
+        Order_Control.addItemToOrder(tableID, itemID - 1, quanitity);
     }
 
     public static void addPackageUI(int tableID) {
@@ -144,25 +144,25 @@ public class Order_UI {
         int itemID = sc.nextInt();
         System.out.println("Please enter Quantity");
         int quanitity = sc.nextInt();
-        orderManager.addPackageToOrder(tableID, itemID - 1, quanitity);
+        Order_Control.addPackageToOrder(tableID, itemID - 1, quanitity);
     }
 
     public static void deleteMenuItemUI(int tableID) {
-        orderManager.printOrderedItems(tableID);
+        Order_Control.printOrderedItems(tableID);
         System.out.println("Please enter ala carte itemID to be deleted ");
         int itemID = sc.nextInt();
         System.out.println("Please enter Quantity");
         int quantity = sc.nextInt();
-        orderManager.removeItemFromOrder(tableID, itemID - 1, quantity);
+        Order_Control.removeItemFromOrder(tableID, itemID - 1, quantity);
     }
 
     public static void deletePackageItemUI(int tableID) {
-        orderManager.printOrderedItems(tableID);
+        Order_Control.printOrderedItems(tableID);
         System.out.println("Please enter package itemID to be deleted ");
         int itemID = sc.nextInt();
         System.out.println("Please enter Quantity");
         int quantity = sc.nextInt();
-        orderManager.removePackageFromOrder(tableID, itemID - 1, quantity);
+        Order_Control.removePackageFromOrder(tableID, itemID - 1, quantity);
 
     }
 

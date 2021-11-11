@@ -94,6 +94,7 @@ public class OrderInvoice {
                 "---------------------" + formatter.format(this.dateGenerated.getTime()) + "---------------------");
         System.out.printf(invoiceInfoFormat, "Order Taken by: ", this.order.getStaffID());
         System.out.printf(invoiceInfoFormat, "Invoice Number: ", this.invoiceNumber);
+
         String orderFormat = "| %-3d | %-45s | %3d |%n";
         if (!orderItemsToBePrinted.isEmpty()) {// only print ala carte header when there is existing order
             System.out.format("+----------------------Ala Carte----------------------------+%n");
@@ -117,6 +118,7 @@ public class OrderInvoice {
                     Menu_Control.getPromoPackageList().get(key).getPackageId() + 1,
                     Menu_Control.getPromoPackageList().get(key).getDesc(), value));
         }
+
         String amountFormat = "|%-46s   %10.2f|%n";
         System.out.format("=============================================================%n");
         System.out.printf(amountFormat, "Subtotal:", this.price);
