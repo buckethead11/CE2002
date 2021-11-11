@@ -117,9 +117,10 @@ public class Order_UI {
     public static void tableCheckoutUI() {
         System.out.println("Enter TableID to checkout");
         int tableID = sc.nextInt();
-        System.out.println("Are you a member?");
+        System.out.println("Member? (TRUE/FALSE)");
         boolean member = sc.nextBoolean();
         Order_Control.printOrderInvoice(tableID, member);
+        Order_Control.removeOrder(tableID);
     }
 
     public static void editRatesUI() {

@@ -40,7 +40,7 @@ public class App {
 				break;
 			case 5: // Exit
 				System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-				System.out.println("THANK YOU FOR USING OUR OODP RESTAURANT APP");
+				System.out.println("THANK YOU FOR USING OUR OODP RESTAURANT APP!!!");
 				System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
 				break;

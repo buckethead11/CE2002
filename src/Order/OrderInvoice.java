@@ -35,7 +35,7 @@ public class OrderInvoice {
         this.invoiceNumber = Math.abs(Calendar.getInstance().hashCode());
         this.price = order.getTotalPrice();
         this.gstAmount = gstRatePercentage / 100 * price;
-        this.discountAmount = discountRatePercentage / 100 * price;
+        this.discountAmount = discountRatePercentage / 100 * totalPrice;
         this.dateGenerated = Calendar.getInstance();
         this.totalPrice = (this.price + this.gstAmount);
         this.haveMembership = member;
@@ -87,11 +87,18 @@ public class OrderInvoice {
         HashMap<Integer, Integer> orderItemsToBePrinted = this.order.getOrderedItems();
         HashMap<Integer, Integer> orderPackagesToBePrinted = this.order.getOrderedPackages();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+
         System.out.println(
                 "\n================  Final Invoice For Table " + this.order.getTableID() + " =================");
         String invoiceInfoFormat = "|%-45s  %12d|%n";
         System.out.println(
                 "---------------------" + formatter.format(this.dateGenerated.getTime()) + "---------------------");
+        System.out.format("*************************************************************%n");
+        System.out.format("~~~~~~~~~~~~~~~~~~~~~~~OODP RESTAURANT~~~~~~~~~~~~~~~~~~~~~~~%n");
+        System.out.format("                       simply the best                       %n");
+        System.out.format("          2002 Nanyang World, Singapore 632002               %n");
+        System.out.format("                        Tel: 62353535                        %n");
+        System.out.format("*************************************************************%n");
         System.out.printf(invoiceInfoFormat, "Order Taken by: ", this.order.getStaffID());
         System.out.printf(invoiceInfoFormat, "Invoice Number: ", this.invoiceNumber);
 
@@ -122,9 +129,9 @@ public class OrderInvoice {
         String amountFormat = "|%-46s   %10.2f|%n";
         System.out.format("=============================================================%n");
         System.out.printf(amountFormat, "Subtotal:", this.price);
-        System.out.printf(amountFormat, "GST:", this.gstAmount);
+        System.out.printf(amountFormat, "GST(7%):", this.gstAmount);
         System.out.printf(amountFormat, "Total:", this.totalPrice);
-        System.out.printf(amountFormat, "Member Discount:", this.discountAmount);
+        System.out.printf(amountFormat, "Member Discount(10%):", this.discountAmount);
         System.out.printf(amountFormat, "Grand Total:", this.finalPrice);
     }
 
