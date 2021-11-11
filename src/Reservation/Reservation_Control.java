@@ -69,6 +69,8 @@ public class Reservation_Control{
 	public static void createReservation(String date, String time, int pax, String name, int contact) {
 		// Create a Calendar instance. To be assigned the inputed date time
 		Calendar reserveDate = Calendar.getInstance();
+		Calendar now = Calendar.getInstance();
+		now.add(Calendar.MINUTE, 30);
 		try {
 			// Create a custom date formatter with the same format as the input string
 			SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yy HH:mm");
@@ -76,9 +78,11 @@ public class Reservation_Control{
 			reserveDate.setTime(d);
 			
 			//Checks through the available tables to see if any of them has a clashing reservation
-			
 			int tableID = Reservation_Control.checkAvailable(pax, reserveDate);
-			if(tableID ==-1) {
+			//Checks the time
+			if(now.after(reserveDate)) {
+				System.out.println("You can only book a reservation at least 30mins later");
+			} else if(tableID ==-1) {
 				System.out.println("No tables available");
 			}else {
 				//Add this reservation to the reservation list
