@@ -13,7 +13,6 @@ public class Sales_Control{
     private static HashMap<Integer, Integer> totalItemQty = new HashMap<Integer, Integer>();
     private static HashMap<Integer, Integer> totalPackageQty = new HashMap<Integer, Integer>();
 
-
     private static double totalSales=0;
     private static int oldQty=0;
 
