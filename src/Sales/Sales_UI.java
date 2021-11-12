@@ -1,135 +1,72 @@
 package Sales;
 
 import java.util.*;
-
+import java.util.Calendar;
 import Menu.Menu_Control;
 import Menu.PromotionPackage;
 import Order.*;
 public class Sales_UI {
-    
-    private static HashMap<Integer,Order> totalOrders = new HashMap<Integer,Order>();
-    private static HashMap<Integer, Integer> individualOrder ;//= new HashMap<Integer, Integer>();
-    private static HashMap<Integer, Integer> individualPackage ;//= new HashMap<Integer, Integer>();
-    private static HashMap<Integer, Integer> totalItemQty = new HashMap<Integer, Integer>();
-    private static HashMap<Integer, Integer> totalPackageQty = new HashMap<Integer, Integer>();
-
-    public static void main(String[] args) {
-        start();
-    }
-    private static double totalSales;
-    private static int itemID;
-    private static int itemQty;
-    private static int oldQty; 
-
-    public static void start(){
-
-        totalOrders = Order_Control.getOrderList();
-
-        
-        totalOrders.forEach((key,order) ->{
-            totalSales += order.getTotalPrice();
-            individualOrder = order.getOrderedItems();
-            individualPackage = order.getOrderedPackages();
-
-            if (!individualOrder.isEmpty()){
-
-                individualOrder.forEach((itemID,qty)->{
-                    System.out.println("ItemID:" +itemID + "Qty :"+qty);
-                    oldQty = totalItemQty.getOrDefault(itemID,0);
-    
-                    if (oldQty == 0){ //not in the list
-                        totalItemQty.put(itemID, qty);
-                    }
-                    else{
-                        totalItemQty.replace(itemID, oldQty+qty);
-                    }
-                });
-            }
-
-            
-            if(!individualPackage.isEmpty()){
-                individualPackage.forEach((packageID,packageQty)->{
-                    System.out.println("Package:" +packageID + "Qty :"+packageQty);
-                    oldQty = totalPackageQty.getOrDefault(packageID,0);
-    
-                    if (oldQty == 0){ //not in the list
-                        totalPackageQty.put(packageID, packageQty);
-                    }
-                    else{
-                        totalPackageQty.replace(packageID, oldQty+packageQty);
-                    }
-                });
-            }
-               
-    });
-
-        printSales();
-
-        System.out.println("Total sale: "+ totalSales);
-        
-    }
-            
-
-    public static void printSales(){
-        System.out.println("--------------------Individual Sales Report---------------------");
-        System.out.println("Item\t\t   |Qty\t\t |Total Price");
-        totalItemQty.forEach((itemID,qty)->{
-            if (qty!=0){
-                System.out.println(
-                    Menu_Control.getMenuItem(itemID+1).getName()
-                    +"\t\t"+ qty + (Menu_Control.getMenuItem(itemID+1).getPrice()*qty)
-                    
-                );
-            }
-        });
-
-//This does not work because the promotion package class contains the description and not the itemID
-    System.out.println("--------------------Package Sales Report---------------------");
-    System.out.println("Package\t\t   |qty\t\t |Price");
-        totalPackageQty.forEach((packageID,qty)->{
-            if (qty!=0){
-                packageID+=1;
-                System.out.println(
-                    packageID
-                    +"\t\t"+ qty +"\t\t" + (Menu_Control.getPromoPackageList().get(packageID).getPackagePrice())*qty
-                );
-            }
-        });
-        
-    }
+    private static Scanner sc = new Scanner(System.in);
+    private static Calendar c = Calendar.getInstance();
 
 
     public static void displayUI(){
 
-        Scanner sc = new Scanner(System.in);
+
         do {
             System.out.println("--------------------Sales Report----------------------");
-            System.out.println("(1) Sales report by day");
-            System.out.println("(2) Sales report by week");
-            System.out.println("(3) Sales report by month");
-            System.out.println("(4) Return to main menu");
+            System.out.println("(1) Today's Sales Report");
+            System.out.println("(2) Sales report by day");
+            System.out.println("(3) Sales report by week");
+            System.out.println("(4) Sales report by month");
+            System.out.println("(5) Return to main menu");
     
             int input= sc.nextInt();
-    
+
+            System.out.println("Current Date and Time:" + c.getTime()+ "Week: "+ c.WEEK_OF_YEAR);
             switch(input){
-                case 1:
-                    start();
+                case 1: //today's sales report
+                    dailyInstance_UI();
                     break;
-                case 2:
+                case 2:// daily
+                    daily_UI();
                     break;
-                case 3:
+                case 3: //weekly
+                    weekly_UI();
                     break;
                 case 4:
+                    month_UI();
                     break;
-                default:
-                    break;
+                case 5:
+                    return;
             }
         } while(true);
-        
+    }
 
-        
+    public static void dailyInstance_UI(){
+        c = Calendar.getInstance();
+        int currentDay= c.DAY_OF_MONTH;
+        int currentMonth = c.MONTH;
+        Sales_Control.generateReportData(Sales_Control.getDailySalesReport(currentDay, currentMonth));
+    }
 
-
+    public static void daily_UI(){
+        System.out.println("[Daily sales report]: Enter the day (dd)");
+        int inputDay= sc.nextInt();
+        System.out.println("[Daily sales report]: Enter the Month (mm)");
+        int inputMonth= sc.nextInt();
+        Sales_Control.generateReportData(Sales_Control.getDailySalesReport(inputDay, inputMonth));
     }
     
+    public static void weekly_UI(){
+        System.out.println("[Weekly sales report]: Enter the Week (ww)");
+        int inputWeek = sc.nextInt();
+        Sales_Control.generateReportData(Sales_Control.getWeeklySalesreport(inputWeek));
+    }
+
+    public static void month_UI(){
+        System.out.println("[Monthly sales report]: Enter the Month (mm)");
+        int inputMonth1 = sc.nextInt();
+        Sales_Control.generateReportData(Sales_Control.getMonthlySalesReport(inputMonth1));
+    }
 }

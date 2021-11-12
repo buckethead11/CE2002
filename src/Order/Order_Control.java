@@ -8,6 +8,8 @@ import Menu.*;
 public class Order_Control {
 
     private static HashMap<Integer, Order> orderList = new HashMap<Integer, Order>();
+    //this is for invoice
+    private static HashMap<Integer, OrderInvoice> paidOrderList = new HashMap<Integer, OrderInvoice>();
 
     public static void displayUI() {
         Order_UI.display();
@@ -89,12 +91,22 @@ public class Order_Control {
         Order order = orderList.get(tableID);
         OrderInvoice orderInvoice = new OrderInvoice(order, member);
         orderInvoice.printInvoice();
+        //for invoice
+        orderPaid(orderInvoice);
     }
     
     //code for invoice
 
     public static HashMap<Integer, Order> getOrderList(){
         return orderList;
+    }
+    public static HashMap<Integer, OrderInvoice> getPaidOrderList(){
+        return paidOrderList;
+    }
+
+    public static void orderPaid(OrderInvoice orderInvoice){
+        int size =paidOrderList.size();
+        paidOrderList.put(size,orderInvoice);
     }
 
 }
