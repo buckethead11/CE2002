@@ -60,9 +60,7 @@ public class Reservation_Control{
 	}
 	
 	//Methods
-	public static void displayUI() {
-		Reservation_UI.showReservationUI();
-	}
+	
 	
 	
 	//Called when creating Reservation
