@@ -90,4 +90,11 @@ public class Order_Control {
         OrderInvoice orderInvoice = new OrderInvoice(order, member);
         orderInvoice.printInvoice();
     }
+    
+    //code for invoice
+
+    public static HashMap<Integer, Order> getOrderList(){
+        return orderList;
+    }
+
 }

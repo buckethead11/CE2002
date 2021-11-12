@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import Table.Table_Control;
 import Reservation.Reservation_Control;
+import Sales.Sales_UI;
 import Menu.Menu_Control;
 import Order.Order_Control;
 
@@ -36,7 +37,7 @@ public class App {
 				Order_Control.displayUI();
 				break;
 			case 4:
-
+				Sales_UI.displayUI();
 				break;
 			case 5: // Exit
 				System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
