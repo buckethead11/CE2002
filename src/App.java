@@ -31,7 +31,7 @@ public class App {
 				Menu_Control.displayUI();
 				break;
 			case 2:
-				Reservation_Control.displayUI();
+				Reservation_UI.displayUI();
 				break;
 			case 3:
 				Order_Control.displayUI();
