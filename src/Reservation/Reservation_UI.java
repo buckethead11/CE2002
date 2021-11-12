@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Reservation_UI {
 	
-	public static void showReservationUI() {
+	public static void displayUI() {
 		Scanner sc = new Scanner(System.in);
 		int choice;
 		boolean run = true;
