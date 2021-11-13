@@ -1,13 +1,16 @@
 package Order;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import Menu.*;
+import Util.*;
 
-public class Order_UI {
+public class Order_UI extends UI {
     private static Scanner sc = new Scanner(System.in);
 
-    public static void display() {
-        int input;
+    public void displayUI() {
+        int choice;
+        boolean run = true;
         do {
             System.out.println("\n===============ORDER================");
             System.out.println("(1) View a order");
@@ -20,9 +23,13 @@ public class Order_UI {
             System.out.println("(8) Return to main menu");
             System.out.println("====================================");
             System.out.print("What do you want to do? ");
-            input = sc.nextInt();
 
-            switch (input) {
+            try{
+                choice = sc.nextInt();
+                if (!(choice >= 1 && choice <= 8)) {
+					System.out.println("Input must be an integer from 1-8!");
+				}
+            switch (choice) {
             case 1: // view an order
                 ViewOrderUI();
                 break;
@@ -59,9 +66,16 @@ public class Order_UI {
                 editRatesUI();
                 break;
             case 8:
+                run = false;
                 return;
             }
-        } while (true);
+            }catch (InputMismatchException e) {
+				System.out.println("Input must be an integer!");
+				sc.nextLine();
+				continue;
+			}
+            
+        } while (run);
     }
 
     public static void ViewOrderUI() {

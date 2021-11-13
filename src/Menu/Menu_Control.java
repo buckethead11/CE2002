@@ -17,10 +17,6 @@ public class Menu_Control {
         System.out.println("Menu loaded");
     }
 
-    public static void displayUI() {
-        Menu_UI.display();
-    }
-
     public static void showMenu() {
         System.out.println(
                 "\n======================================================= Menu =======================================================");
