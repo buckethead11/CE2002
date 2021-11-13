@@ -1,12 +1,14 @@
 package Menu;
 
 import Util.*;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu_UI extends UI {
     static int choice = 0;
     static Scanner sc = new Scanner(System.in);
-
+    boolean run = true;
     public void displayUI() {
         {
             do {
@@ -22,37 +24,47 @@ public class Menu_UI extends UI {
                 System.out.println("(9) Return to main menu");
                 System.out.println("========================================================");
                 System.out.print("What do you want to do? ");
-                choice = sc.nextInt();
-                sc.nextLine();
-                switch (choice) {
-                case 1:
-                    Menu_Control.showMenu();
-                    break;
-                case 2:
-                    Menu_Control.showPromotionPackage();
-                    break;
-                case 3:
-                    addMenuItemUI();
-                    break;
-                case 4:
-                    updateMenuItemUI();
-                    break;
-                case 5:
-                    deleteMenuItemUI();
-                    break;
-                case 6:
-                    addPromoPackageUI();
-                    break;
-                case 7:
-                    updatePromoPackageUI();
-                    break;
-                case 8:
-                    deletePromoPackageUI();
-                    break;
-                case 9:
-                    return;
-                }
-            } while (choice < 10);
+                try{
+                    choice = sc.nextInt();
+                    if (!(choice >= 1 && choice <= 9)) {
+                        System.out.println("Input must be an integer from 1-9!");
+                    }
+                    switch (choice) {
+                    case 1:
+                        Menu_Control.showMenu();
+                        break;
+                    case 2:
+                        Menu_Control.showPromotionPackage();
+                        break;
+                    case 3:
+                        addMenuItemUI();
+                        break;
+                    case 4:
+                        updateMenuItemUI();
+                        break;
+                    case 5:
+                        deleteMenuItemUI();
+                        break;
+                    case 6:
+                        addPromoPackageUI();
+                        break;
+                    case 7:
+                        updatePromoPackageUI();
+                        break;
+                    case 8:
+                        deletePromoPackageUI();
+                        break;
+                    case 9:
+                        run = false;
+                        return;
+                    }
+                }catch (InputMismatchException e) {
+				System.out.println("Input must be an integer!");
+				sc.nextLine();
+				continue;
+			}
+                
+            } while (run);
         }
     }
 
