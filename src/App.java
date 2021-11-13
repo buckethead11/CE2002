@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import Table.Table_Control;
 import Reservation.*;
@@ -24,6 +25,7 @@ public class App {
 		// Show main menu UI
 		Scanner sc = new Scanner(System.in);
 		int choice;
+		boolean run = true;
 		do {
 			System.out.println("\n============OODP RESTAURANT MAIN MENU===============");
 			System.out.println("(1) Menu");
@@ -33,27 +35,36 @@ public class App {
 			System.out.println("(5) Log out");
 			System.out.println("====================================================");
 			System.out.print("Where do you want to go? ");
-			choice = sc.nextInt();
-			switch (choice) {
-			case 1:
-				menuUI.displayUI();
-				break;
-			case 2:
-				reservationUI.displayUI();
-				break;
-			case 3:
-				orderUI.displayUI();
-				break;
-			case 4:
-				salesUI.displayUI();
-				break;
-			case 5: // Exit
-				System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-				System.out.println("THANK YOU FOR USING OUR OODP RESTAURANT APP!!!");
-				System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-
-				break;
+			try {
+				choice = sc.nextInt();
+				if (!(choice >= 1 && choice <= 5)) {
+					System.out.println("Input must be an integer from 1-5!");
+				}
+				switch (choice) {
+					case 1:
+						menuUI.displayUI();
+						break;
+					case 2:
+						reservationUI.displayUI();
+						break;
+					case 3:
+						orderUI.displayUI();
+						break;
+					case 4:
+						salesUI.displayUI();
+						break;
+					case 5: // Exit
+						System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+						System.out.println("THANK YOU FOR USING OUR OODP RESTAURANT APP!!!");
+						System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+						run = false;
+						break;
+				}
+			}catch (InputMismatchException e) {
+				System.out.println("Input must be an integer!");
+				sc.nextLine();
+				continue;
 			}
-		} while (choice < 5);
+		} while (run);
 	}
 }
