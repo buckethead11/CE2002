@@ -12,7 +12,7 @@ public class Sales_UI {
 
     public static void displayUI(){
 
-
+        boolean run = true;
         do {
             System.out.println("--------------------Sales Report----------------------");
             System.out.println("(1) Today's Sales Report");
@@ -20,27 +20,37 @@ public class Sales_UI {
             System.out.println("(3) Sales report by week");
             System.out.println("(4) Sales report by month");
             System.out.println("(5) Return to main menu");
-    
-            int input= sc.nextInt();
-
             System.out.println("Current Date and Time:" + c.getTime()+ " Week: "+ c.getWeekYear());
-            switch(input){
-                case 1: //today's sales report
-                    dailyInstance_UI();
-                    break;
-                case 2:// daily
-                    daily_UI();
-                    break;
-                case 3: //weekly
-                    weekly_UI();
-                    break;
-                case 4:
-                    month_UI();
-                    break;
-                case 5:
-                    return;
-            }
-        } while(true);
+            try{
+                int choice= sc.nextInt();
+                if (!(choice >= 1 && choice <= 5)) {
+					System.out.println("Input must be an integer from 1-5!");
+				}
+                switch(choice){
+                    case 1: //today's sales report
+                        dailyInstance_UI();
+                        break;
+                    case 2:// daily
+                        daily_UI();
+                        break;
+                    case 3: //weekly
+                        weekly_UI();
+                        break;
+                    case 4:
+                        month_UI();
+                        break;
+                    case 5:
+                        run = false;
+                        return;
+                }
+                
+            }catch (InputMismatchException e) {
+				System.out.println("Input must be an integer!");
+				sc.nextLine();
+				continue;
+			}
+            
+        } while(run);
     }
 
     public static void dailyInstance_UI(){
