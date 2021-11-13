@@ -100,8 +100,8 @@ public class Order_Control {
     public static HashMap<Integer, Order> getOrderList(){
         return orderList;
     }
-    public static HashMap<Integer, OrderInvoice> getPaidOrderList(){
-        return paidOrderList;
+    public static final HashMap<Integer, OrderInvoice> getPaidOrderList(){
+        return  paidOrderList;
     }
 
     public static void orderPaid(OrderInvoice orderInvoice){

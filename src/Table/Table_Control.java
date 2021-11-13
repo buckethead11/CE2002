@@ -64,10 +64,12 @@ public class Table_Control {
 			int currentDay = currentDateAndTime.DAY_OF_YEAR;
 			reservationDateTime.set(Calendar.HOUR, reservationDateTime.get(Calendar.HOUR)-1);
 			//debugging
+			/*
 			System.out.println("Current Date and Time: "+ currentDateAndTime);
 			System.out.println("Reservation Date and Time "+ reservationDateTime);
 			System.out.println("Reservation Hour "+ reservationDateTime.HOUR);
 			System.out.println("System Hour "+ currentDateAndTime.HOUR);
+			*/
 			//checking
 			if(ReservationDay== currentDay){
 				if (reservationDateTime.HOUR == currentDateAndTime.HOUR){
