@@ -1,12 +1,16 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import Table.Table_Control;
-import Reservation.Reservation_Control;
-import Reservation.Reservation_UI;
+import Reservation.*;
 import Sales.Sales_UI;
-import Menu.Menu_Control;
-import Order.Order_Control;
-	
+import Menu.*;
+import Order.*;
+
 public class App {
+	private Sales_UI salesUI;
+	private Menu_UI menuUI;
+	private Order_UI orderUI;
+	private Reservation_UI reservationUI;
 
 	public static void main(String[] args) {
 		// Initialize controllers (add on controllers for those that needs to be
@@ -14,9 +18,14 @@ public class App {
 		Table_Control.init();
 		Reservation_Control.init();
 		Menu_Control.init();
+		Menu_UI menuUI = new Menu_UI();
+		Order_UI orderUI = new Order_UI();
+		Reservation_UI reservationUI = new Reservation_UI();
+		Sales_UI salesUI = new Sales_UI();
 		// Show main menu UI
 		Scanner sc = new Scanner(System.in);
 		int choice;
+		boolean run = true;
 		do {
 			System.out.println("\n============OODP RESTAURANT MAIN MENU===============");
 			System.out.println("(1) Menu");
@@ -26,27 +35,36 @@ public class App {
 			System.out.println("(5) Log out");
 			System.out.println("====================================================");
 			System.out.print("Where do you want to go? ");
-			choice = sc.nextInt();
-			switch (choice) {
-			case 1:
-				Menu_Control.displayUI();
-				break;
-			case 2:
-				Reservation_UI.displayUI();
-				break;
-			case 3:
-				Order_Control.displayUI();
-				break;
-			case 4:
-				Sales_UI.displayUI();
-				break;
-			case 5: // Exit
-				System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-				System.out.println("THANK YOU FOR USING OUR OODP RESTAURANT APP!!!");
-				System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-
-				break;
+			try {
+				choice = sc.nextInt();
+				if (!(choice >= 1 && choice <= 5)) {
+					System.out.println("Input must be an integer from 1-5!");
+				}
+				switch (choice) {
+				case 1:
+					menuUI.displayUI();
+					break;
+				case 2:
+					reservationUI.displayUI();
+					break;
+				case 3:
+					orderUI.displayUI();
+					break;
+				case 4:
+					salesUI.displayUI();
+					break;
+				case 5: // Exit
+					System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+					System.out.println("THANK YOU FOR USING OUR OODP RESTAURANT APP!!!");
+					System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+					run = false;
+					break;
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("Input must be an integer!");
+				sc.nextLine();
+				continue;
 			}
-		} while (choice < 5);
+		} while (run);
 	}
 }
