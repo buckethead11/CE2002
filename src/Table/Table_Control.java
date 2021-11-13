@@ -83,6 +83,16 @@ public class Table_Control {
 			}
 		}
 	}
+	public static void checkTableStatus(){
+		for (int i =0; i < tableLayout.size();i++){
+			//If table is occupied print table number is occupied
+			if (tableLayout.get(i).getOccupied()){
+				System.out.println("Table "+tableLayout.get(i).getTableID()+" status: Occupied");
+			}else{
+				System.out.println("Table "+tableLayout.get(i).getTableID()+" status: Available");
+			}
+		}
+	}
 
 }
 
