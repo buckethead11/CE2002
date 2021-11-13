@@ -6,12 +6,9 @@ enum FoodType {
     MAIN, DRINK, DESSERT
 };
 
-public class MenuItem {
+public class MenuItem extends Item {
 
-    private int id;
     private String name;
-    private String description;
-    private double price;
     private String type;
 
     /**
@@ -31,7 +28,7 @@ public class MenuItem {
         this.type = type;
     }
 
-    public int getItemId() {
+    public int getID() {
         return this.id;
     }
 

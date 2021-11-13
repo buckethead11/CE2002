@@ -2,12 +2,7 @@ package Menu;
 
 import java.math.BigDecimal;
 
-public class PromotionPackage {
-
-    private int packageId;
-    private double packagePrice;
-    private String description; // example of description: Package contains Carbonara+ Teh peng + ice cream. we
-                                // can change to using arraylist of menuItemID in the future
+public class PromotionPackage extends Item {
 
     /**
      * 
@@ -16,25 +11,25 @@ public class PromotionPackage {
      * @param description
      */
     public PromotionPackage(int packageId, String description, double packagePrice) {
-        this.packageId = packageId;
-        this.packagePrice = packagePrice;
+        this.id = packageId;
+        this.price = packagePrice;
         this.description = description;
     }
 
-    public int getPackageId() {
-        return this.packageId;
+    public int getID() {
+        return this.id;
     }
 
-    public double getPackagePrice() {
-        return this.packagePrice;
+    public double getPrice() {
+        return this.price;
     }
 
     public String getDesc() {
         return this.description;
     }
 
-    public void updatePackagePrice(double newPrice) {
-        this.packagePrice = newPrice;
+    public void updatePrice(double newPrice) {
+        this.price = newPrice;
     }
 
     public void updateDesc(String newDescription) {

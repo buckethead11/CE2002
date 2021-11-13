@@ -35,9 +35,9 @@ public class OrderInvoice {
         this.invoiceNumber = Math.abs(Calendar.getInstance().hashCode());
         this.price = order.getTotalPrice();
         this.gstAmount = gstRatePercentage / 100 * price;
-        this.discountAmount = discountRatePercentage / 100 * totalPrice;
         this.dateGenerated = Calendar.getInstance();
         this.totalPrice = (this.price + this.gstAmount);
+        this.discountAmount = discountRatePercentage / 100 * totalPrice;
         this.haveMembership = member;
         if (haveMembership) {
             this.finalPrice = this.totalPrice - this.discountAmount;
@@ -110,9 +110,9 @@ public class OrderInvoice {
             System.out.format("+-----+-----------------------------------------------+-----+%n");
             // iterate through item hashmap, print ID, get name from ID and print
             // quantity
-            orderItemsToBePrinted.forEach((key, value) -> System.out.printf(orderFormat,
-                    Menu_Control.getMenuArrayList().get(key).getItemId() + 1,
-                    Menu_Control.getMenuArrayList().get(key).getName(), value));
+            orderItemsToBePrinted.forEach(
+                    (key, value) -> System.out.printf(orderFormat, Menu_Control.getMenuArrayList().get(key).getID() + 1,
+                            Menu_Control.getMenuArrayList().get(key).getName(), value));
         }
         if (!orderPackagesToBePrinted.isEmpty()) {// only print package header when there is existing order
             System.out.format("+----------------------Packages-----------------------------+%n");
@@ -122,7 +122,7 @@ public class OrderInvoice {
             // iterate through package hashmap, print ID, get name from ID and print
             // quantity
             orderPackagesToBePrinted.forEach((key, value) -> System.out.printf(orderFormat,
-                    Menu_Control.getPromoPackageList().get(key).getPackageId() + 1,
+                    Menu_Control.getPromoPackageList().get(key).getID() + 1,
                     Menu_Control.getPromoPackageList().get(key).getDesc(), value));
         }
 

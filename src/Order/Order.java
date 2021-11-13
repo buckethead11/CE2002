@@ -64,7 +64,7 @@ public class Order {
     public void addPackages(int packageID, int quantity) {
         // access the price of the package from Menu object and add it to order total
         // price
-        this.totalPrice += (Menu_Control.getPromoPackageList().get(packageID).getPackagePrice() * quantity);
+        this.totalPrice += (Menu_Control.getPromoPackageList().get(packageID).getPrice() * quantity);
         if (orderedPackages.containsKey(packageID)) {
             incrementPromoValueFromKey(packageID, quantity);
         } else {
@@ -95,7 +95,7 @@ public class Order {
     public void removePackages(int packageID, int quantity) {
         if (orderedPackages.containsKey(packageID)) {
             // access the price of package from Menu object and subtract from order total
-            this.totalPrice -= (Menu_Control.getPromoPackageList().get(packageID).getPackagePrice() * quantity);
+            this.totalPrice -= (Menu_Control.getPromoPackageList().get(packageID).getPrice() * quantity);
             decrementPromoValueFromKey(packageID, quantity);
         } else {
             System.out.println("No such package in the existing order");

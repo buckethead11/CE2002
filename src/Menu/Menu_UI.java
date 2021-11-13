@@ -9,6 +9,7 @@ public class Menu_UI extends UI {
     static int choice = 0;
     static Scanner sc = new Scanner(System.in);
     boolean run = true;
+
     public void displayUI() {
         {
             do {
@@ -23,9 +24,10 @@ public class Menu_UI extends UI {
                 System.out.println("(8) Delete Promo Package");
                 System.out.println("(9) Return to main menu");
                 System.out.println("========================================================");
-                System.out.print("What do you want to do? ");
-                try{
+                System.out.println("What do you want to do?");
+                try {
                     choice = sc.nextInt();
+                    sc.nextLine();
                     if (!(choice >= 1 && choice <= 9)) {
                         System.out.println("Input must be an integer from 1-9!");
                     }
@@ -58,28 +60,28 @@ public class Menu_UI extends UI {
                         run = false;
                         return;
                     }
-                }catch (InputMismatchException e) {
-				System.out.println("Input must be an integer!");
-				sc.nextLine();
-				continue;
-			}
-                
+                } catch (InputMismatchException e) {
+                    System.out.println("Input must be an integer!");
+                    sc.nextLine();
+                    continue;
+                }
+
             } while (run);
         }
     }
 
     public static void addMenuItemUI() {
-        System.out.print("The type of the new item (MAIN/DRINK/DESSERT):");
+        System.out.println("The type of the new item (MAIN/DRINK/DESSERT):");
         String type = sc.nextLine();
-        System.out.print("The name of the new item:");
+        System.out.println("The name of the new item:");
         String name = sc.nextLine();
-        System.out.print("The description of the new item:");
+        System.out.println("The description of the new item:");
         String description = sc.nextLine();
-        System.out.print("The price of the new item:");
+        System.out.println("The price of the new item:");
         double price = sc.nextDouble();
         sc.nextLine();
         Menu_Control.createMenuItem(type, name, description, price);
-        System.out.print(name + " added!\n");
+        System.out.println(name + " added!\n");
     }
 
     public static void updateMenuItemUI() {

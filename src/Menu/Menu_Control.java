@@ -33,7 +33,7 @@ public class Menu_Control {
             MenuItem item = MenuList.get(i);
             System.out.printf(menuFormat, i + 1, item.getType(), item.getName(), item.getDesc(), item.getPrice());
         }
-        System.out.print("\n");
+        // System.out.print("\n");
 
     }
 
@@ -116,7 +116,7 @@ public class Menu_Control {
         String promoFormat = "| %-3d | %-60s | %8.2f |%n";
         for (int i = 0; i < PromoPackageList.size(); i++) {
             PromotionPackage item = PromoPackageList.get(i);
-            System.out.printf(promoFormat, i + 1, item.getDesc(), item.getPackagePrice());
+            System.out.printf(promoFormat, i + 1, item.getDesc(), item.getPrice());
         }
         System.out.print("\n");
     }
@@ -178,7 +178,7 @@ public class Menu_Control {
      * @param newPrice
      */
     public static void updatePromoPrice(int id, double newPrice) {
-        PromoPackageList.get(id - 1).updatePackagePrice(newPrice);
+        PromoPackageList.get(id - 1).updatePrice(newPrice);
     }
 
     public static ArrayList<MenuItem> getMenuArrayList() {

@@ -8,12 +8,8 @@ import Menu.*;
 public class Order_Control {
 
     private static HashMap<Integer, Order> orderList = new HashMap<Integer, Order>();
-    //this is for invoice
+    // this is for invoice
     private static HashMap<Integer, OrderInvoice> paidOrderList = new HashMap<Integer, OrderInvoice>();
-
-    public static void displayUI() {
-        Order_UI.display();
-    }
 
     // create a new blank order
     public static void makeOrder(int tableID, int staffID) {
@@ -58,9 +54,9 @@ public class Order_Control {
             System.out.format("+-----+-----------------------------------------------+-----+%n");
             // iterate through item hashmap, print ID, get name from ID and print
             // quantity
-            orderItemsToBePrinted.forEach((key, value) -> System.out.printf(orderFormat,
-                    Menu_Control.getMenuArrayList().get(key).getItemId() + 1,
-                    Menu_Control.getMenuArrayList().get(key).getName(), value));
+            orderItemsToBePrinted.forEach(
+                    (key, value) -> System.out.printf(orderFormat, Menu_Control.getMenuArrayList().get(key).getID() + 1,
+                            Menu_Control.getMenuArrayList().get(key).getName(), value));
         }
         if (!orderPackagesToBePrinted.isEmpty()) {// only print package header when there is existing order
             System.out.format("+----------------------Packages-----------------------------+%n");
@@ -70,7 +66,7 @@ public class Order_Control {
             // iterate through package hashmap, print ID, get name from ID and print
             // quantity
             orderPackagesToBePrinted.forEach((key, value) -> System.out.printf(orderFormat,
-                    Menu_Control.getPromoPackageList().get(key).getPackageId() + 1,
+                    Menu_Control.getPromoPackageList().get(key).getID() + 1,
                     Menu_Control.getPromoPackageList().get(key).getDesc(), value));
         }
         System.out.println("\n=============== Current Bill For Table " + tableID + " ====================");
@@ -91,15 +87,12 @@ public class Order_Control {
         Order order = orderList.get(tableID);
         OrderInvoice orderInvoice = new OrderInvoice(order, member);
         orderInvoice.printInvoice();
-        //for invoice
-        orderPaid(orderInvoice);
-    }
-    
-    //code for invoice
+        }
 
-    public static HashMap<Integer, Order> getOrderList(){
+    public static HashMap<Integer, Order> getOrderList() {
         return orderList;
     }
+
     public static final HashMap<Integer, OrderInvoice> getPaidOrderList(){
         return  paidOrderList;
     }
@@ -108,5 +101,4 @@ public class Order_Control {
         int size =paidOrderList.size();
         paidOrderList.put(size,orderInvoice);
     }
-
 }
