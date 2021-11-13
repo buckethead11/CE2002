@@ -1,6 +1,11 @@
 package Table;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+
+
+import Reservation.Reservation;
+import Reservation.Reservation_Control;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -46,5 +51,37 @@ public class Table_Control {
 	public static ArrayList<Table> getTableLayout(){
 		return tableLayout;
 	}
+
+	public static void updateTableReservation(){
+		ArrayList<Reservation> reservationList = Reservation_Control.getReservationList();
+		System.out.println(reservationList.size());
+		for (int i =0; i<reservationList.size(); i++){
+			Reservation reservation = reservationList.get(i);
+			Calendar reservationDateTime = reservation.getDateTime();
+			Calendar currentDateAndTime = Calendar.getInstance();
+
+			int ReservationDay = reservationDateTime.DAY_OF_YEAR;
+			int currentDay = currentDateAndTime.DAY_OF_YEAR;
+			reservationDateTime.set(Calendar.HOUR, reservationDateTime.get(Calendar.HOUR)-1);
+			//debugging
+			System.out.println("Current Date and Time: "+ currentDateAndTime);
+			System.out.println("Reservation Date and Time "+ reservationDateTime);
+			System.out.println("Reservation Hour "+ reservationDateTime.HOUR);
+			System.out.println("System Hour "+ currentDateAndTime.HOUR);
+			//checking
+			if(ReservationDay== currentDay){
+				if (reservationDateTime.HOUR == currentDateAndTime.HOUR){
+					int tableID = reservation.getTableID();
+					tableLayout.get(tableID).setOccupied(true);
+					System.out.println("Table Reservations Updated: ");
+					System.out.println("Table: " + tableID +" set to Occupied");
+					
+				} //assume reservations made from 12noon - 12mn
+
+			}
+		}
+	}
+
 }
+
 

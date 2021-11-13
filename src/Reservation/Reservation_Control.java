@@ -1,8 +1,9 @@
 package Reservation;
 
 import java.util.Date;
+import java.util.Iterator;
 
-import Table.Table_Control;
+import Table.*;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -21,11 +22,12 @@ public class Reservation_Control{
 	public static String pathSeparator = File.separator; 
 	private static String pathToCsv = userHome+ pathSeparator + "data"+ pathSeparator + "reservations.csv";
 
+
 	public static void init() {
 		//create an array list of reservations
 		reservationList = new ArrayList<Reservation>();
 		Reservation reservation;
-		
+		Calendar date = Calendar.getInstance();
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yy HH:mm");
 		// Loads table layout
 		try {
@@ -34,7 +36,6 @@ public class Reservation_Control{
 		String line1=null;//skips first line
 		String row ="";
 		while ((row = csvReader.readLine()) != null) {
-			Calendar date = Calendar.getInstance();
 		    //reads each line and split it by comma into an array
 			String[] line = row.split(",");
 			
@@ -60,14 +61,15 @@ public class Reservation_Control{
 	}
 	
 	//Methods
-	
+	public static void displayUI() {
+		Reservation_UI.displayUI();
+	}
 	
 	
 	//Called when creating Reservation
 	public static void createReservation(String date, String time, int pax, String name, int contact) {
 		// Create a Calendar instance. To be assigned the inputed date time
 		Calendar reserveDate = Calendar.getInstance();
-		// Gets the time now
 		Calendar now = Calendar.getInstance();
 		now.add(Calendar.MINUTE, 30);
 		try {
@@ -78,14 +80,14 @@ public class Reservation_Control{
 			
 			//Checks through the available tables to see if any of them has a clashing reservation
 			int tableID = Reservation_Control.checkAvailable(pax, reserveDate);
-			//Checks the time must be at least 30mins after current time
+			//Checks the time
 			if(now.after(reserveDate)) {
-				System.out.println("Reservations must be at least 30mins in advance");
+				System.out.println("You can only book a reservation at least 30mins later");
 			} else if(tableID ==-1) {
 				System.out.println("No tables available");
 			}else {
 				//Add this reservation to the reservation list
-				Reservation newreservation = new Reservation(reserveDate, pax, name, contact, tableID);
+				Reservation newreservation = new Reservation(reserveDate,  pax, name, contact, tableID);
 				
 				reservationList.add(newreservation);
 				//Update the table layout
@@ -103,13 +105,15 @@ public class Reservation_Control{
 	//Called when deleting Reservations
 	public static void deleteReservation(String name, int contact) {
 		boolean notFound = true;
-		for ( int i =0;i <reservationList.size(); i++){
-			if (name.equals(reservationList.get(i).getName()) && contact==reservationList.get(i).getContact()){
-				reservationList.remove(reservationList.indexOf(reservationList.get(i)));
+		Iterator<Reservation> itr = reservationList.iterator();
+		while (itr.hasNext()) {
+			Reservation reservationList = itr.next(); 
+			if (name.equals(reservationList.getName()) && contact==reservationList.getContact()) {
+				itr.remove();
 				notFound = false;
 				System.out.println("Reservation deleted!");
+				} 
 			}
-		}
 		if (notFound) {
 			System.out.println("No reservation found!");
 		}
@@ -117,22 +121,15 @@ public class Reservation_Control{
 	
 	//Check for expired reservations (30mins after time elapsed) and deletes them
 	public static void checkReservation() {
-		
 		//Gets the current time
 		Calendar now = Calendar.getInstance();
 		now.add(Calendar.MINUTE, 30);
-		//USed for debugging remove later
-		Date date = now.getTime();  
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");  
-		String strDate = dateFormat.format(date);
-		System.out.println(strDate);
 		//Iterates through the reservation list and checks for expired reservations
 		for (int i =0;i<reservationList.size();i++) {
 			if(now.after(reservationList.get(i).getDateTime())) {
-				System.out.println("Updating Reservations" );
+				System.out.println("Deleting expired reservations" );
 				String name = reservationList.get(i).getName();
 				int contact = reservationList.get(i).getContact();
-		
 				deleteReservation(name,contact);
 
 			}
@@ -211,9 +208,29 @@ public class Reservation_Control{
 			Calendar date = reservationList.get(i).getDateTime();
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
 			String strDate = dateFormat.format(date.getTime());
+			//Print out reservation bookings used for debugging, remove later
+			System.out.println("Resevation name: " +reservationList.get(i).getName() );
+			System.out.println("Resevation date and time: " + strDate);
+			System.out.println("Resevation pax: " + reservationList.get(i).getPax());
 		}
         System.out.println("Saved!");
     }
-	
+	//Additional code for table
+	public static ArrayList<Reservation> getReservationList(){
+		return reservationList;
+	}
+	/*
+	private static void appendReservationFromCSV(){
+		ArrayList<Reservation> reservationList = getReservationList();
+		ArrayList<Table> allTheTables = Table_Control.getTableLayout();
+
+		for (int i =0; i<reservationList.size();i++){
+			Reservation reservation = reservationList.get(i);
+			int tableID = reservation.getTableID();
+			allTheTables.get(tableID).getTableReservations().put(reservation.getDateTime(),reservation);
+		}
+		
+	}
+	*/
 }
 

@@ -23,7 +23,7 @@ public class Sales_UI {
     
             int input= sc.nextInt();
 
-            System.out.println("Current Date and Time:" + c.getTime()+ "Week: "+ c.WEEK_OF_YEAR);
+            System.out.println("Current Date and Time:" + c.getTime()+ " Week: "+ c.getWeekYear());
             switch(input){
                 case 1: //today's sales report
                     dailyInstance_UI();

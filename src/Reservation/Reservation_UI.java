@@ -3,6 +3,8 @@ package Reservation;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import Table.Table_Control;
+
 public class Reservation_UI {
 	
 	public static void displayUI() {
@@ -15,7 +17,8 @@ public class Reservation_UI {
 			System.out.println("(1) Create Reservations");
 			System.out.println("(2) View Reservations");
 			System.out.println("(3) Delete Reservation");
-			System.out.println("(4) Return to main menu");
+			System.out.println("(4) Update Table reservations");
+			System.out.println("(5) Return to main menu");
 			System.out.println("=======================================");
 			System.out.print("What do you want to do? ");
 			try{
@@ -52,7 +55,11 @@ public class Reservation_UI {
 						int a = sc.nextInt();
 						Reservation_Control.deleteReservation(z,a);
 						break;
-					case 4: // Exit
+					case 4: //update table reservations
+						System.out.println("Updating Table Reservations");
+						Table_Control.updateTableReservation();
+						break;
+					case 5: // Exit
 						Reservation_Control.saveReservation();
 						run = false;
 						System.out.println("Returning to main menu...");
