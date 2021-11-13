@@ -18,13 +18,14 @@ public class Sales_Control{
 
 
 
-    public static void generateReportData( HashMap<Integer,OrderInvoice> orderListToSort,int timePeriod){
+    public static void generateReportData( HashMap<Integer,OrderInvoice> orderListToSort){
         HashMap<Integer,OrderInvoice> totalOrders = new HashMap<Integer,OrderInvoice>();
+        
         oldQty= 0;
         totalSales=0;
-        //totalOrders.clear();
-        //individualOrder.clear();
-        //individualPackage.clear();
+        totalOrders.clear();
+        individualOrder.clear();
+        individualPackage.clear();
         totalItemQty.clear();
         totalPackageQty.clear();
         totalOrders = orderListToSort;
@@ -47,7 +48,6 @@ public class Sales_Control{
                     }
                 });
             }
-
             if(!individualPackage.isEmpty()){
                 individualPackage.forEach((packageID,packageQty)->{
 
@@ -63,28 +63,13 @@ public class Sales_Control{
             }
                
     });
-        printHeader(timePeriod);
+        printHeader();
         printSales(totalSales);
     }
             
-    public static void printHeader(int timePeriod){
+    public static void printHeader(){
         //checking the time period
-        int time= timePeriod;
-        String input;
-        switch (time){
-            case 1: //by day
-                input= "Daily";
-                break;
-            case 2: //weekly
-                input ="Weekly";
-            case 3: // Monthly
-                input= "Monthly";
-                break;
-            default:
-                input = "Error";
-        }
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        String invoiceInfoFormat = "|%-45s  %12d|%n";
         System.out.println(
                 "---------------------" + formatter.format(getCurrentTime().getTime()) + "---------------------");
         System.out.format("*************************************************************%n");
@@ -93,10 +78,25 @@ public class Sales_Control{
         System.out.format("          2002 Nanyang World, Singapore 632002               %n");
         System.out.format("                        Tel: 62353535                        %n");
         System.out.format("*************************************************************%n");
-        System.out.printf("\n"+input + " Sales Report\n");
     }
 
     public static void printSales(double totalFinalSales){
+
+        System.out.println("--------------------Package Sales Report---------------------");
+        System.out.println("Package\t\t   |qty\t\t |Price");
+            totalPackageQty.forEach((packageID,qty)->{
+                if (qty!=0){
+                    packageID+=1;
+                    System.out.println(
+                        packageID
+                        +"\t\t"+ qty +"\t\t\t" //+ (Menu_Control.getPromoPackageList().get(packageID).getPackagePrice())*qty
+                    );
+                }
+            });
+
+        }
+
+        /*
         String orderFormat = "| %-3d | %-45s | %3d |%n";
         if (!totalItemQty.isEmpty()){
                 System.out.format("+---------------Individual Item Sales Report----------------+%n");
@@ -121,7 +121,8 @@ public class Sales_Control{
                 }
             });
             */
-        }
+        
+        /*
         if (!totalPackageQty.isEmpty()){
             System.out.format("+-------------------Package Sales Report--------------------+%n");
             System.out.format("+-----+-----------------------------------------------+-----+%n");
@@ -133,6 +134,7 @@ public class Sales_Control{
                 Menu_Control.getPromoPackageList().get(packageID).getDesc(),
                 qty));
         }
+        */
         /*
         if (!totalPackageQty.isEmpty()){
             System.out.println("--------------------Package Sales Report---------------------");
@@ -150,7 +152,7 @@ public class Sales_Control{
         //for checking the time period
 
            
-    }
+    
 
     public static Calendar getCurrentTime(){
         Calendar c= Calendar.getInstance();

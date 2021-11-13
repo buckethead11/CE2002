@@ -23,7 +23,7 @@ public class Sales_UI {
     
             int input= sc.nextInt();
 
-            System.out.println("Current Date and Time:" + c.getTime()+ " Week: "+ c.getWeekYear());
+            //System.out.println("Current Date and Time:" + c.getTime()+ " Week: "+ c.getWeekYear());
             switch(input){
                 case 1: //today's sales report
                     dailyInstance_UI();
@@ -47,7 +47,7 @@ public class Sales_UI {
         c = Calendar.getInstance();
         int currentDay= c.DAY_OF_MONTH;
         int currentMonth = c.MONTH;
-        Sales_Control.generateReportData(Sales_Control.getDailySalesReport(currentDay, currentMonth),1);
+        Sales_Control.generateReportData(Sales_Control.getDailySalesReport(currentDay, currentMonth));
     }
 
     public static void daily_UI(){
@@ -55,18 +55,18 @@ public class Sales_UI {
         int inputDay= sc.nextInt();
         System.out.println("[Daily sales report]: Enter the Month (mm)");
         int inputMonth= sc.nextInt();
-        Sales_Control.generateReportData(Sales_Control.getDailySalesReport(inputDay, inputMonth-1),1);
+        Sales_Control.generateReportData(Sales_Control.getDailySalesReport(inputDay, inputMonth-1));
     }
     
     public static void weekly_UI(){
         System.out.println("[Weekly sales report]: Enter the Week (ww)");
         int inputWeek = sc.nextInt();
-        Sales_Control.generateReportData(Sales_Control.getWeeklySalesreport(inputWeek),2);
+        Sales_Control.generateReportData(Sales_Control.getWeeklySalesreport(inputWeek));
     }
 
     public static void month_UI(){
         System.out.println("[Monthly sales report]: Enter the Month (mm)");
         int inputMonth1 = sc.nextInt();
-        Sales_Control.generateReportData(Sales_Control.getMonthlySalesReport(inputMonth1),3);
+        Sales_Control.generateReportData(Sales_Control.getMonthlySalesReport(inputMonth1));
     }
 }
