@@ -2,11 +2,12 @@ package Order;
 
 import java.util.Scanner;
 import Menu.*;
+import Util.*;
 
-public class Order_UI {
+public class Order_UI extends UI {
     private static Scanner sc = new Scanner(System.in);
 
-    public static void display() {
+    public void displayUI() {
         int input;
         do {
             System.out.println("\n===============ORDER================");

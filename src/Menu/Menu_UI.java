@@ -1,12 +1,13 @@
 package Menu;
 
+import Util.*;
 import java.util.Scanner;
 
-public class Menu_UI {
+public class Menu_UI extends UI {
     static int choice = 0;
     static Scanner sc = new Scanner(System.in);
 
-    public static void display() {
+    public void displayUI() {
         {
             do {
                 System.out.println("\n================MENU/PROMO PACKAGE======================");

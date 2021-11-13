@@ -1,12 +1,15 @@
 import java.util.Scanner;
 import Table.Table_Control;
-import Reservation.Reservation_Control;
-import Reservation.Reservation_UI;
+import Reservation.*;
 import Sales.Sales_UI;
-import Menu.Menu_Control;
-import Order.Order_Control;
+import Menu.*;
+import Order.*;
 
 public class App {
+	private Sales_UI salesUI;
+	private Menu_UI menuUI;
+	private Order_UI orderUI;
+	private Reservation_UI reservationUI;
 
 	public static void main(String[] args) {
 		// Initialize controllers (add on controllers for those that needs to be
@@ -14,6 +17,10 @@ public class App {
 		Table_Control.init();
 		Reservation_Control.init();
 		Menu_Control.init();
+		Menu_UI menuUI = new Menu_UI();
+		Order_UI orderUI = new Order_UI();
+		Reservation_UI reservationUI = new Reservation_UI();
+		Sales_UI salesUI = new Sales_UI();
 		// Show main menu UI
 		Scanner sc = new Scanner(System.in);
 		int choice;
@@ -29,16 +36,16 @@ public class App {
 			choice = sc.nextInt();
 			switch (choice) {
 			case 1:
-				Menu_Control.displayUI();
+				menuUI.displayUI();
 				break;
 			case 2:
-				Reservation_UI.displayUI();
+				reservationUI.displayUI();
 				break;
 			case 3:
-				Order_Control.displayUI();
+				orderUI.displayUI();
 				break;
 			case 4:
-				Sales_UI.displayUI();
+				salesUI.displayUI();
 				break;
 			case 5: // Exit
 				System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
