@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import Menu.*;
+import Staff.*;
 
 public class OrderInvoice {
 
@@ -91,6 +92,8 @@ public class OrderInvoice {
         System.out.println(
                 "\n================  Final Invoice For Table " + this.order.getTableID() + " =================");
         String invoiceInfoFormat = "|%-45s  %12d|%n";
+        String invoiceStaffNameFormat = "|%-45s  %12s|%n";
+
         System.out.println(
                 "---------------------" + formatter.format(this.dateGenerated.getTime()) + "---------------------");
         System.out.format("*************************************************************%n");
@@ -99,7 +102,8 @@ public class OrderInvoice {
         System.out.format("          2002 Nanyang World, Singapore 632002               %n");
         System.out.format("                        Tel: 62353535                        %n");
         System.out.format("*************************************************************%n");
-        System.out.printf(invoiceInfoFormat, "Order Taken by: ", this.order.getStaffID());
+        System.out.printf(invoiceStaffNameFormat, "Order Taken by: ",
+                Staff_Control.getStaffList().get(this.order.getStaffID() - 1).getName());
         System.out.printf(invoiceInfoFormat, "Invoice Number: ", this.invoiceNumber);
 
         String orderFormat = "| %-3d | %-45s | %3d |%n";

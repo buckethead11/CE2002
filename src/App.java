@@ -5,6 +5,7 @@ import Reservation.*;
 import Sales.Sales_UI;
 import Menu.*;
 import Order.*;
+import Staff.*;
 
 public class App {
 	public static void main(String[] args) {
@@ -19,6 +20,7 @@ public class App {
 		Table_Control.init();
 		Reservation_Control.init();
 		Menu_Control.init();
+		Staff_Control.init();
 		System.out.println("[System]: Initialising Done!");
 	}
 
