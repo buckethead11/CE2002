@@ -19,6 +19,8 @@ public class OrderInvoice {
 
     private double discountAmount;
 
+    private double serviceChargeAmount;
+
     private Calendar dateGenerated;
 
     private double totalPrice;
@@ -26,6 +28,8 @@ public class OrderInvoice {
     private double finalPrice;
 
     private boolean haveMembership;
+
+    private static double servicePercentage = 5;
 
     private static double discountRatePercentage = 10;
 
@@ -36,8 +40,9 @@ public class OrderInvoice {
         this.invoiceNumber = Math.abs(Calendar.getInstance().hashCode());
         this.price = order.getTotalPrice();
         this.gstAmount = gstRatePercentage / 100 * price;
+        this.serviceChargeAmount = servicePercentage / 100 * price;
         this.dateGenerated = Calendar.getInstance();
-        this.totalPrice = (this.price + this.gstAmount);
+        this.totalPrice = (this.price + this.gstAmount + this.serviceChargeAmount);
         this.discountAmount = discountRatePercentage / 100 * totalPrice;
         this.haveMembership = member;
         if (haveMembership) {
@@ -133,12 +138,13 @@ public class OrderInvoice {
         String amountFormat = "|%-46s   %10.2f|%n";
         System.out.format("=============================================================%n");
         System.out.printf(amountFormat, "Subtotal:", this.price);
-        System.out.printf(amountFormat, "GST(7%):", this.gstAmount);
+        System.out.printf(amountFormat, "Service Charge:", this.serviceChargeAmount);
+        System.out.printf(amountFormat, "GST:", this.gstAmount);
         System.out.printf(amountFormat, "Total:", this.totalPrice);
         if (this.haveMembership)
-            System.out.printf(amountFormat, "Member Discount(10%):", this.discountAmount);
+            System.out.printf(amountFormat, "Member Discount:", this.discountAmount);
         else
-            System.out.printf(amountFormat, "Member Discount(10%):", 0.00);
+            System.out.printf(amountFormat, "Member Discount:", 0.00);
         System.out.printf(amountFormat, "Grand Total:", this.finalPrice);
     }
 
