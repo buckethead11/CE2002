@@ -7,14 +7,20 @@ import Menu.*;
 import Order.*;
 
 public class App {
-	private Sales_UI salesUI;
-	private Menu_UI menuUI;
-	private Order_UI orderUI;
-	private Reservation_UI reservationUI;
+	private static Sales_UI salesUI;
+	private static Menu_UI menuUI;
+	private static Order_UI orderUI;
+	private static Reservation_UI reservationUI;
 
 	public static void main(String[] args) {
+		appInit();
+		displayUI();
+	}
+
+	private static void appInit(){
 		// Initialize controllers (add on controllers for those that needs to be
 		// initialized)
+		System.out.println("[System]: Initialising Everything....");
 		Table_Control.init();
 		Reservation_Control.init();
 		Menu_Control.init();
@@ -22,7 +28,10 @@ public class App {
 		Order_UI orderUI = new Order_UI();
 		Reservation_UI reservationUI = new Reservation_UI();
 		Sales_UI salesUI = new Sales_UI();
-		// Show main menu UI
+		System.out.println("[System]: Initialising Done!");
+	}
+
+	private static void displayUI(){
 		Scanner sc = new Scanner(System.in);
 		int choice;
 		boolean run = true;
@@ -67,4 +76,5 @@ public class App {
 			}
 		} while (run);
 	}
+	
 }

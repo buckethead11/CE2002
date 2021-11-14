@@ -105,7 +105,7 @@ public class Order_Control {
     }
 
     public static void printAllCurrentOrders(){
-        System.out.println("Current Open Orders");
+        System.out.println("Current Open Order: ");
         orderList.forEach((key,value)-> System.out.printf(key +", "));
     }
     /*
