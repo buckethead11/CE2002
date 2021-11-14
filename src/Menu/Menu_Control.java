@@ -8,8 +8,8 @@ import java.util.Scanner;
 
 public class Menu_Control {
     static Scanner sc = new Scanner(System.in);
-    public static ArrayList<MenuItem> MenuList = new ArrayList<MenuItem>();
-    public static ArrayList<PromotionPackage> PromoPackageList = new ArrayList<PromotionPackage>();
+    private static ArrayList<MenuItem> MenuList = new ArrayList<MenuItem>();
+    private static ArrayList<PromotionPackage> PromoPackageList = new ArrayList<PromotionPackage>();
 
     public static void init() {
         loadMenuItem();

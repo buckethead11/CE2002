@@ -10,6 +10,7 @@ public class Sales_Control {
 
     public static void printDailyReport(String date) {
         try {
+            int i = 0;
             double totalRevenue = 0;
             int quantity[] = new int[10];
             File revenueFile = new File("data", "sales.txt");
@@ -20,8 +21,8 @@ public class Sales_Control {
                 String[] arrLinedata = data.split(",", 15);
                 if (date.equals(arrLinedata[0])) {
                     totalRevenue += Double.parseDouble(arrLinedata[1]);
-                    for (int i = 0; i < 10; i++) {
-                        quantity[i] += Integer.parseInt(arrLinedata[i + 2]);
+                    for (int k = 0; k < 10; k++) {
+                        quantity[k] += Integer.parseInt(arrLinedata[k + 2]);
                     }
                 }
             }
@@ -34,7 +35,7 @@ public class Sales_Control {
             System.out.format("+-----+-----------------------------------------------+-----+%n");
             System.out.format("| ID  |                Item Name                      | Qty |%n");
             System.out.format("+-----+-----------------------------------------------+-----+%n");
-            for (int i = 0; i < 7; i++) {
+            for (i = 0; i < Menu_Control.getMenuArrayList().size(); i++) {
                 System.out.printf(orderFormat, Menu_Control.getMenuArrayList().get(i).getID() + 1,
                         Menu_Control.getMenuArrayList().get(i).getName(), quantity[i]);
             }
@@ -42,13 +43,13 @@ public class Sales_Control {
             System.out.format("+-----+-----------------------------------------------+-----+%n");
             System.out.format("| ID  |               Description                     | Qty |%n");
             System.out.format("+-----+-----------------------------------------------+-----+%n");
-            for (int i = 0; i < 3; i++) {
-                System.out.printf(orderFormat, Menu_Control.getPromoPackageList().get(i).getID() + 1,
-                        Menu_Control.getPromoPackageList().get(i).getDesc(), quantity[i]);
+            for (int j = 0; j < Menu_Control.getPromoPackageList().size(); j++) {
+                System.out.printf(orderFormat, Menu_Control.getPromoPackageList().get(j).getID() + 1,
+                        Menu_Control.getPromoPackageList().get(j).getDesc(), quantity[i + j]);
             }
             String amountFormat = "|%-46s   %10.2f|%n";
             System.out.format("=============================================================%n");
-            System.out.printf(amountFormat, "TOTAL REVENUE GENERATED TODAY IS:", totalRevenue);
+            System.out.printf(amountFormat, "TOTAL REVENUE GENERATED IN THE DAY IS:", totalRevenue);
             System.out.println("");
         } catch (FileNotFoundException e) {
             System.out.println("File not found! Menu not updated");
@@ -58,6 +59,7 @@ public class Sales_Control {
 
     public static void printMonthlyReport(String date) {
         try {
+            int i = 0;
             double totalRevenue = 0;
             int quantity[] = new int[10];
             File revenueFile = new File("data", "sales.txt");
@@ -68,8 +70,8 @@ public class Sales_Control {
                 String[] arrLinedata = data.split(",", 15);
                 if (arrLinedata[0].indexOf("date") != 0) {
                     totalRevenue += Double.parseDouble(arrLinedata[1]);
-                    for (int i = 0; i < 10; i++) {
-                        quantity[i] += Integer.parseInt(arrLinedata[i + 2]);
+                    for (int k = 0; k < 10; k++) {
+                        quantity[k] += Integer.parseInt(arrLinedata[k + 2]);
                     }
                 }
             }
@@ -82,7 +84,7 @@ public class Sales_Control {
             System.out.format("+-----+-----------------------------------------------+-----+%n");
             System.out.format("| ID  |                Item Name                      | Qty |%n");
             System.out.format("+-----+-----------------------------------------------+-----+%n");
-            for (int i = 0; i < 7; i++) {
+            for (i = 0; i < Menu_Control.getMenuArrayList().size(); i++) {
                 System.out.printf(orderFormat, Menu_Control.getMenuArrayList().get(i).getID() + 1,
                         Menu_Control.getMenuArrayList().get(i).getName(), quantity[i]);
             }
@@ -90,9 +92,9 @@ public class Sales_Control {
             System.out.format("+-----+-----------------------------------------------+-----+%n");
             System.out.format("| ID  |               Description                     | Qty |%n");
             System.out.format("+-----+-----------------------------------------------+-----+%n");
-            for (int i = 0; i < 3; i++) {
-                System.out.printf(orderFormat, Menu_Control.getPromoPackageList().get(i).getID() + 1,
-                        Menu_Control.getPromoPackageList().get(i).getDesc(), quantity[i]);
+            for (int j = 0; j < Menu_Control.getPromoPackageList().size(); j++) {
+                System.out.printf(orderFormat, Menu_Control.getPromoPackageList().get(j).getID() + 1,
+                        Menu_Control.getPromoPackageList().get(j).getDesc(), quantity[i + j]);
             }
             String amountFormat = "|%-46s   %10.2f|%n";
             System.out.format("=============================================================%n");
