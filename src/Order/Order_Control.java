@@ -12,6 +12,7 @@ public class Order_Control {
     private static HashMap<Integer, OrderInvoice> paidOrderList = new HashMap<Integer, OrderInvoice>();
 
     private static int tableOrderID;
+
     // create a new blank order
     public static void makeOrder(int tableID, int staffID) {
         HashMap<Integer, Integer> orderedItems = new HashMap<Integer, Integer>();// empty orderItem hashmap
@@ -28,7 +29,7 @@ public class Order_Control {
 
     public static void addItemToOrder(int tableID, int itemID, int quantity) {
 
-            orderList.get(tableID).addItems(itemID, quantity);
+        orderList.get(tableID).addItems(itemID, quantity);
 
     }
 
@@ -89,70 +90,24 @@ public class Order_Control {
         Order order = orderList.get(tableID);
         OrderInvoice orderInvoice = new OrderInvoice(order, member);
         orderInvoice.printInvoice();
-        }
+    }
 
     public static HashMap<Integer, Order> getOrderList() {
         return orderList;
     }
 
-    public static final HashMap<Integer, OrderInvoice> getPaidOrderList(){
-        return  paidOrderList;
+    public static final HashMap<Integer, OrderInvoice> getPaidOrderList() {
+        return paidOrderList;
     }
 
-    public static void orderPaid(OrderInvoice orderInvoice){
-        int size =paidOrderList.size();
-        paidOrderList.put(size,orderInvoice);
+    public static void orderPaid(OrderInvoice orderInvoice) {
+        int size = paidOrderList.size();
+        paidOrderList.put(size, orderInvoice);
     }
 
-    public static void printAllCurrentOrders(){
+    public static void printAllCurrentOrders() {
         System.out.println("Current Open Order: ");
-        orderList.forEach((key,value)-> System.out.printf(key +", "));
-    }
-    /*
-    //code to check validity
-    static boolean flag= false;
-    static int userInput;
-    public static boolean checkOrderIDValidity(int orderID){
-        //function will check if the order exist inside the order list 
-        //if it doesnt exist it will return a false else true
-        userInput =orderID;
-        while(true){
-            
-            Scanner sc= new Scanner(System.in);
-            flag = false; //reset flag back to false
-            orderList.forEach((key,order)->{
-                if (userInput == key){
-                    flag = true;
-                }
-            }
-            );
-
-            if(flag == false){ //asking the user for a new valid orderid
-                System.out.println("orderID is invalid- Please enter a valid orderID");
-                System.out.println("To quit: Enter -1");
-                try{
-                    userInput= sc.nextInt();
-                }catch(Exception e){
-                    System.out.println("Please enter a valid input");
-                }
-            }
-            else if( userInput ==-1){ //means the user want to exit from the app
-                break;
-            }
-            else if (flag==true){
-
-                break;
-
-            } //Order is valid just break from the looop
-                
-        }
-        
-        return flag; //returnt the boolean flag value
-
+        orderList.forEach((key, value) -> System.out.printf(key + ", "));
     }
 
-    public static void setTableOrderID(int tableID){
-        tableOrderID= tableID;
-    }
-    */
 }

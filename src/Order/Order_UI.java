@@ -3,6 +3,7 @@ package Order;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import Menu.*;
+import Table.Table_Control;
 import Util.*;
 
 public class Order_UI extends UI {
@@ -34,20 +35,11 @@ public class Order_UI extends UI {
                 case 1: // view an order
                     ViewOrderUI();
                     break;
-                // } catch (Exception e) {
-                // System.out.println("Error: Please enter a valid input");
-                // }
                 case 2: // view all current orders
                     viewAllCurrentOrdersUI();
                     break;
                 case 3: // create a new Order
-                    // try {
                     createNewOrderUI();
-                    // } catch (Exception e) {
-                    // System.out.println("Please enter an integer for Order Number or Staff ID");
-                    // }
-                    break;
-
                 case 4:// add an item into order
                     addItemUI();
                     break;
@@ -58,8 +50,7 @@ public class Order_UI extends UI {
                     break;
 
                 case 6: // Delete an order
-                    // System.out.println("Printing out all the orders");
-                    // orderManager.getAllOrders();
+
                     deleteOrderUI();
                     break;
                 case 7:
@@ -149,6 +140,8 @@ public class Order_UI extends UI {
             boolean member = sc.nextBoolean();
             Order_Control.printOrderInvoice(tableID, member);
             Order_Control.removeOrder(tableID);
+            Table_Control.getTableLayout().get(tableID).setOccupied(false);
+
         }
 
     }
