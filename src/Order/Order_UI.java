@@ -25,59 +25,59 @@ public class Order_UI extends UI {
             System.out.println("====================================");
             System.out.print("What do you want to do? ");
 
-            try{
+            try {
                 choice = sc.nextInt();
-                if (!(choice >= 1 && choice <= 8)) {
-					System.out.println("Input must be an integer from 1-8!");
-				}
-            switch (choice) {
-            case 1: // view an order
-                ViewOrderUI();
-                break;
-            // } catch (Exception e) {
-            // System.out.println("Error: Please enter a valid input");
-            // }
-            case 2: //view all current orders
-                viewAllCurrentOrdersUI();
-                break;
-            case 3: // create a new Order
-                // try {
-                createNewOrderUI();
+                if (!(choice >= 1 && choice <= 9)) {
+                    System.out.println("Input must be an integer from 1-9!");
+                }
+                switch (choice) {
+                case 1: // view an order
+                    ViewOrderUI();
+                    break;
                 // } catch (Exception e) {
-                // System.out.println("Please enter an integer for Order Number or Staff ID");
+                // System.out.println("Error: Please enter a valid input");
                 // }
-                break;
+                case 2: // view all current orders
+                    viewAllCurrentOrdersUI();
+                    break;
+                case 3: // create a new Order
+                    // try {
+                    createNewOrderUI();
+                    // } catch (Exception e) {
+                    // System.out.println("Please enter an integer for Order Number or Staff ID");
+                    // }
+                    break;
 
-            case 4:// add an item into order
-                addItemUI();
-                break;
+                case 4:// add an item into order
+                    addItemUI();
+                    break;
 
-            case 5:// delete an item from order
-                deleteItemUI();
+                case 5:// delete an item from order
+                    deleteItemUI();
 
-                break;
+                    break;
 
-            case 6: // Delete an order
-                // System.out.println("Printing out all the orders");
-                // orderManager.getAllOrders();
-                deleteOrderUI();
-                break;
-            case 7:
-                tableCheckoutUI();
-                break;
-            case 8:
-                editRatesUI();
-                break;
-            case 9:
-                run = false;
-                return;
+                case 6: // Delete an order
+                    // System.out.println("Printing out all the orders");
+                    // orderManager.getAllOrders();
+                    deleteOrderUI();
+                    break;
+                case 7:
+                    tableCheckoutUI();
+                    break;
+                case 8:
+                    editRatesUI();
+                    break;
+                case 9:
+                    run = false;
+                    return;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Input must be an integer!");
+                sc.nextLine();
+                continue;
             }
-            }catch (InputMismatchException e) {
-				System.out.println("Input must be an integer!");
-				sc.nextLine();
-				continue;
-			}
-            
+
         } while (run);
     }
 
@@ -87,7 +87,8 @@ public class Order_UI extends UI {
         if (Order_Control.checkValidOrder(tableID))
             Order_Control.printOrderedItems(tableID);
     }
-    public static void viewAllCurrentOrdersUI(){
+
+    public static void viewAllCurrentOrdersUI() {
         Order_Control.printAllCurrentOrders();
     }
 
@@ -109,7 +110,7 @@ public class Order_UI extends UI {
     public static void addItemUI() {
         System.out.println("Pleaes key in the tableID you want to add order");
         int tableID = sc.nextInt();
-        if (Order_Control.checkValidOrder(tableID)){
+        if (Order_Control.checkValidOrder(tableID)) {
             System.out.println("(1) Add ala carte item");
             System.out.println("(2) Add promo package item");
             int choice = sc.nextInt();
@@ -125,7 +126,7 @@ public class Order_UI extends UI {
         System.out.println("Please key in the tableID you want to remove order");
         // try {
         int tableID = sc.nextInt();
-        if (Order_Control.checkValidOrder(tableID)){
+        if (Order_Control.checkValidOrder(tableID)) {
             System.out.println("(1) Remove ala carte item");
             System.out.println("(2) Remove promo package item");
             int choice = sc.nextInt();
@@ -134,7 +135,7 @@ public class Order_UI extends UI {
             if (choice == 2)
                 deletePackageItemUI(tableID);
         }
-       
+
         // } catch (Exception e) {
         // System.out.println("Error: Please enter a valid value");
         // }
@@ -143,7 +144,7 @@ public class Order_UI extends UI {
     public static void tableCheckoutUI() {
         System.out.println("Enter TableID to checkout");
         int tableID = sc.nextInt();
-        if (Order_Control.checkValidOrder(tableID)){
+        if (Order_Control.checkValidOrder(tableID)) {
             System.out.println("Member? (TRUE/FALSE)");
             boolean member = sc.nextBoolean();
             Order_Control.printOrderInvoice(tableID, member);
@@ -162,7 +163,7 @@ public class Order_UI extends UI {
         System.out.println("Updated Membership discount rate: " + discountRate + " Updated government tax rate: "
                 + governmentTaxRate);
     }
-    
+
     public static void addMenuItemUI(int tableID) {
         Menu_Control.showMenu();
         System.out.println("Please enter itemID to be added with above list for reference");
@@ -170,12 +171,9 @@ public class Order_UI extends UI {
         System.out.println("Please enter Quantity");
         int quanitity = sc.nextInt();
 
-
         Order_Control.addItemToOrder(tableID, itemID - 1, quanitity);
-        
 
     }
-
 
     public static void addPackageUI(int tableID) {
         Menu_Control.showPromotionPackage();
@@ -183,7 +181,7 @@ public class Order_UI extends UI {
         int itemID = sc.nextInt();
         System.out.println("Please enter Quantity");
         int quanitity = sc.nextInt();
-        
+
         Order_Control.addPackageToOrder(tableID, itemID - 1, quanitity);
     }
 

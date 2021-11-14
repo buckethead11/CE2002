@@ -23,8 +23,8 @@ public class Reservation_UI {
 			System.out.print("What do you want to do? ");
 			try {
 				choice = sc.nextInt();
-				if (!(choice >= 1 && choice <= 4)) {
-					System.out.println("Input must be an integer from 1-4!");
+				if (!(choice >= 1 && choice <= 5)) {
+					System.out.println("Input must be an integer from 1-5!");
 				}
 				switch (choice) {
 				case 1: // Create Reservations
