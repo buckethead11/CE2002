@@ -62,7 +62,7 @@ public class Table_Control {
 
 			int ReservationDay = reservationDateTime.DAY_OF_YEAR;
 			int currentDay = currentDateAndTime.DAY_OF_YEAR;
-			reservationDateTime.set(Calendar.HOUR, reservationDateTime.get(Calendar.HOUR)-1);
+			reservationDateTime.set(Calendar.HOUR_OF_DAY, reservationDateTime.get(Calendar.HOUR_OF_DAY)-1);
 			//debugging
 			/*
 			System.out.println("Current Date and Time: "+ currentDateAndTime);
@@ -72,7 +72,7 @@ public class Table_Control {
 			*/
 			//checking
 			if(ReservationDay== currentDay){
-				if (reservationDateTime.HOUR == currentDateAndTime.HOUR){
+				if (reservationDateTime.HOUR_OF_DAY == currentDateAndTime.HOUR_OF_DAY){
 					int tableID = reservation.getTableID();
 					tableLayout.get(tableID).setOccupied(true);
 					System.out.println("Table Reservations Updated: ");
