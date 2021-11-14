@@ -131,7 +131,10 @@ public class OrderInvoice {
         System.out.printf(amountFormat, "Subtotal:", this.price);
         System.out.printf(amountFormat, "GST(7%):", this.gstAmount);
         System.out.printf(amountFormat, "Total:", this.totalPrice);
-        System.out.printf(amountFormat, "Member Discount(10%):", this.discountAmount);
+        if (this.haveMembership)
+            System.out.printf(amountFormat, "Member Discount(10%):", this.discountAmount);
+        else
+            System.out.printf(amountFormat, "Member Discount(10%):", 0.00);
         System.out.printf(amountFormat, "Grand Total:", this.finalPrice);
     }
 
